@@ -15,9 +15,9 @@ import com.tedu.element.ElementObj;
  * @问题二：管理器是视图和控制要访问，管理器就必须只有一个，单例模式
  */
 public class ElementManager {
-	/*
+	/**
 	 * String 作为key 匹配所有的元素  play -> List<Object> listPlay
-	 *                             enemy ->List<Object> listEnemy 
+	 * enemy ->List<Object> listEnemy
 	 * 枚举类型，当做map的key用来区分不一样的资源，用于获取资源
 	 * List中元素的泛型 应该是 元素 基类
 	 * 所有元素都可以存放到 map集合中，显示模块只需要获取到 这个map就可以
@@ -74,7 +74,7 @@ public class ElementManager {
 		gameElements.put(GameElement.MAPS, new ArrayList<ElementObj>());
 		gameElements.put(GameElement.ENEMY, new ArrayList<ElementObj>());
 		gameElements.put(GameElement.BOSS, new ArrayList<ElementObj>());
-//		道具，子弹，爆炸效果，死亡效果。。。。
+		/* 道具，子弹，爆炸效果，死亡效果*/
 	}
 	
 }
