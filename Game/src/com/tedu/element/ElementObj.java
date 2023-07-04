@@ -5,27 +5,28 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 /**
- * @˵�� Ԫ�ػ���
- * @author ASUS
+ * @说明 所有元素的基类。
+ * @author renjj
  *
  */
 public abstract class ElementObj {
+
 	private int x;
 	private int y;
 	private int w;
 	private int h;
 	private ImageIcon icon;
-	//...
-	public ElementObj() {
-		
+//	还有。。。。 各种必要的状态值，例如：是否生存.
+	
+	public ElementObj() {	//这个构造其实没有作用，只是为继承的时候不报错写的	
 	}
 	/**
-	 * ���ι���
-	 * @param x ���Ͻ�x����
-	 * @param y ���Ͻ�y����
-	 * @param w ����
-	 * @param h �߶�
-	 * @param icon ͼƬ
+	 * @说明 带参数的构造方法; 可以由子类传输数据到父类
+	 * @param x    左上角X坐标
+	 * @param y    左上角y坐标
+	 * @param w    w宽度
+	 * @param h    h高度
+	 * @param icon  图片
 	 */
 	public ElementObj(int x, int y, int w, int h, ImageIcon icon) {
 		super();
@@ -36,14 +37,14 @@ public abstract class ElementObj {
 		this.icon = icon;
 	}
 	/**
-	 * @˵�� ���󷽷�����ʾԪ��
-	 * @param g ����
+	 * @说明 抽象方法，显示元素
+	 * @param g  画笔 用于进行绘画
 	 */
 	public abstract void showElement(Graphics g);
 	
+	
 	/**
-	 * set��get����
-	 * @return
+	 * 只要是 VO类 POJO 就要为属性生成 get和set方法
 	 */
 	public int getX() {
 		return x;
@@ -75,6 +76,19 @@ public abstract class ElementObj {
 	public void setIcon(ImageIcon icon) {
 		this.icon = icon;
 	}
+
+	
+	
 	
 	
 }
+
+
+
+
+
+
+
+
+
+

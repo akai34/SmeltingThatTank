@@ -5,18 +5,18 @@ import com.tedu.show.GameMainJPanel;
 
 public class GameStart {
 	/**
-	 * ³ÌĞòÎ¨Ò»Èë¿Ú
-	 * @param args
+	 * ç¨‹åºçš„å”¯ä¸€å…¥å£
 	 */
 	public static void main(String[] args) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
 		GameJFrame gj=new GameJFrame();
-		/*
-		 * ÊµÀı»¯Ãæ°å
-		 */
-		GameMainJPanel jp=new GameMainJPanel();
+		/**å®ä¾‹åŒ–é¢æ¿ï¼Œæ³¨å…¥åˆ°jframeä¸­*/
+		GameMainJPanel jp=
+				new GameMainJPanel();
+		
+//		æ³¨å…¥
 		gj.setjPanel(jp);
 		gj.start();
+		
 	}
 
 }
