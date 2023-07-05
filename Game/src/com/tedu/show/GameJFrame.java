@@ -32,7 +32,7 @@ public class GameJFrame extends JFrame{
 	}
 	public void init() {
 		this.setSize(GameX, GameY); //设置窗体大小
-		this.setTitle("测试游戏-泡泡堂");
+		this.setTitle("坦克大战0.2");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置退出并且关闭
 		this.setLocationRelativeTo(null);//屏幕居中显示
 //		。。。。
@@ -54,8 +54,18 @@ public class GameJFrame extends JFrame{
 		if(thead !=null) {
 			thead.start();//启动线程
 		}
-//		界面的刷新
 		this.setVisible(true);//显示界面
+//		如果jp 是 runnable的 子类实体对象 
+//		如果这个判定无法进入就是 instanceof判定为 false 那么 jpanel没有实现runnable接口
+		if(this.jPanel instanceof Runnable) {
+//			已经做类型判定，强制类型转换不会出错
+//			new Thread((Runnable)this.jPanel).start();
+			Runnable run=(Runnable)this.jPanel;
+			Thread th=new Thread(run);
+			th.start();// 
+			System.out.println("是否启动");
+		}
+		
 	}
 	
 	

@@ -42,7 +42,38 @@ public abstract class ElementObj {
 	 */
 	public abstract void showElement(Graphics g);
 	
-	
+	/**
+	 * @说明 使用父类定义接收键盘事件的方法
+	 * 	         只有需要实现键盘监听的子类，重写这个方法(约定)
+	 * @说明 方式2 使用接口的方式;使用接口方式需要在监听类进行类型转换
+	 * @题外话 约定  配置  现在大部分的java框架都是需要进行配置的.
+	 *         约定优于配置
+	 * @param bl   点击的类型  true代表按下，false代表松开
+	 * @param key  代表触发的键盘的code值  
+	 * @扩展 本方法是否可以分为2个方法？1个接收按下，1个接收松开(给同学扩展使用)
+	 */
+	public void keyClick(boolean bl,int key) {  //这个方法不是强制必须重写的。
+		System.out.println("测试使用");
+	}
+	/**
+	 * @说明 移动方法; 需要移动的子类，请 重写这个方法
+	 */
+	protected void move() {	
+	}
+	/**
+	 * @设计模式 模板模式;在模板模式中定义 对象执行方法的先后顺序,由子类选择性重写方法
+	 *        1.移动  2.换装  3.子弹发射
+	 */
+	public final void model() {
+//		先换装
+		updateImage();
+//		在移动
+		move();
+//		在发射子弹
+		add();
+	}
+	protected void updateImage() {}
+	protected void add() {}
 	/**
 	 * 只要是 VO类 POJO 就要为属性生成 get和set方法
 	 */
