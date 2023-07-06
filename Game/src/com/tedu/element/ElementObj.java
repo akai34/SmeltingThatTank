@@ -1,6 +1,7 @@
 package com.tedu.element;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -17,7 +18,9 @@ public abstract class ElementObj {
 	private int h;
 	private ImageIcon icon;
 //	还有。。。。 各种必要的状态值，例如：是否生存.
-	
+	private boolean live=true; //生存状态 true 代表存在，false代表死亡
+						 // 可以采用枚举值来定义这个(生存，死亡，隐身，无敌)
+//	注明：当重新定义一个用于判定状态的变量，需要思考：1.初始化 2.值的改变 3.值的判定
 	public ElementObj() {	//这个构造其实没有作用，只是为继承的时候不报错写的	
 	}
 	/**
@@ -64,16 +67,53 @@ public abstract class ElementObj {
 	 * @设计模式 模板模式;在模板模式中定义 对象执行方法的先后顺序,由子类选择性重写方法
 	 *        1.移动  2.换装  3.子弹发射
 	 */
-	public final void model() {
+	public final void model(long gameTime) {
 //		先换装
 		updateImage();
 //		在移动
 		move();
 //		在发射子弹
-		add();
+		add(gameTime);
 	}
+//	 long ... aaa  不定长的 数组,可以向这个方法传输 N个 long类型的数据
 	protected void updateImage() {}
-	protected void add() {}
+	protected void add(long gameTime){}
+	
+//	死亡方法  给子类继承的
+	public void die() {  //死亡也是一个对象
+		
+	}
+	
+	
+	public  ElementObj createElement(String str) {
+		
+		return null;
+	}
+	/**
+	 * @说明 本方法返回 元素的碰撞矩形对象(实时返回)
+	 * @return
+	 */
+	public Rectangle getRectangle() {
+//		可以将这个数据进行处理 
+		return new Rectangle(x,y,w,h);
+	}
+	/**
+	 * @说明 碰撞方法
+	 * 一个是 this对象 一个是传入值 obj
+	 * @param obj
+	 * @return boolean 返回true 说明有碰撞，返回false说明没有碰撞
+	 */
+	public boolean pk(ElementObj obj) {	
+		return this.getRectangle().intersects(obj.getRectangle());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 只要是 VO类 POJO 就要为属性生成 get和set方法
 	 */
@@ -106,6 +146,12 @@ public abstract class ElementObj {
 	}
 	public void setIcon(ImageIcon icon) {
 		this.icon = icon;
+	}
+	public boolean isLive() {
+		return live;
+	}
+	public void setLive(boolean live) {
+		this.live = live;
 	}
 
 	

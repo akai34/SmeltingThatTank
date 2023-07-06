@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 
 import com.tedu.element.ElementObj;
+import com.tedu.element.Enemy;
 import com.tedu.element.Play;
 import com.tedu.manager.ElementManager;
 import com.tedu.manager.GameElement;
@@ -52,26 +53,77 @@ public class GameThread extends Thread{
 	 *                                 3.暂停等等。。。。。
 	 * 先实现主角的移动
 	 * */
+	
 	private void gameRun() {
+		long gameTime=0L;//给int类型就可以啦
 		while(true) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
 			Map<GameElement, List<ElementObj>> all = em.getGameElements();
-//			GameElement.values();//隐藏方法  返回值是一个数组,数组的顺序就是定义枚举的顺序
-			for(GameElement ge:GameElement.values()) {
-				List<ElementObj> list = all.get(ge);
-				for(int i=0;i<list.size();i++) {
-					ElementObj obj=list.get(i);//读取为基类
-					obj.model();//调用的模板方法 不是move
-				}
-			}			
+		
+			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 			
+			ElementPK();
+			
+			gameTime++;//唯一的时间控制
 			try {
-				sleep(10);
+				sleep(10);//默认理解为 1秒刷新100次 
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
+	public void ElementPK() {
+		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
+		List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
+//		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
+		for(int i=0;i<enemys.size();i++) {
+			ElementObj enemy=enemys.get(i);
+			for(int j=0;j<files.size();j++) {
+				ElementObj file=files.get(j);
+				if(enemy.pk(file)) {
+//					问题： 如果是boos，那么也一枪一个吗？？？？
+//					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
+//					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
+//					扩展 留给大家
+					enemy.setLive(false);
+					file.setLive(false);
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+//	游戏元素自动化方法
+	public void moveAndUpdate(Map<GameElement, List<ElementObj>> all,long gameTime) {
+//		GameElement.values();//隐藏方法  返回值是一个数组,数组的顺序就是定义枚举的顺序
+		for(GameElement ge:GameElement.values()) {
+			List<ElementObj> list = all.get(ge);
+//			编写这样直接操作集合数据的代码建议不要使用迭代器。
+//			for(int i=0;i<list.size();i++) {
+			for(int i=list.size()-1;i>=0;i--){	
+				ElementObj obj=list.get(i);//读取为基类
+				if(!obj.isLive()) {//如果死亡
+//					list.remove(i--);  //可以使用这样的方式
+//					启动一个死亡方法(方法中可以做事情例如:死亡动画 ,掉装备)
+					obj.die();//需要大家自己补充
+					list.remove(i);
+					continue;
+				}
+				obj.model(gameTime);//调用的模板方法 不是move
+			}
+		}	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**游戏切换关卡*/
 	private void gameOver() {
 		
@@ -85,10 +137,11 @@ public class GameThread extends Thread{
 //		em.getElementsByKey(GameElement.PLAY).add(obj);
 		em.addElement(obj,GameElement.PLAY);//直接添加
 		
-//	    添加一个敌人类，仿照 玩家类编写，注意：不需要时间 键盘监听
-//	    实现敌人的显示，同时实现最简单的移动例如： 坐标100,100 移动到   500,100 然后调头
-		
-		
+//		创建敌人
+		for(int i=0;i<10;i++) {
+			em.addElement(new Enemy().createElement(""), 
+					GameElement.ENEMY);
+		}
 		
 		
 	}
