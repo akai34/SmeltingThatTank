@@ -33,6 +33,7 @@ public class MapObj extends ElementObj{
 					name="IRON";
 					break;
 		}
+//		this.hp = 20;
 		int x=Integer.parseInt(arr[1]);
 		int y=Integer.parseInt(arr[2]);
 		int w=icon.getIconWidth();

@@ -16,7 +16,7 @@ public class Enemy extends ElementObj{
 	private boolean up=false;   //上
 	private boolean right=false;//右
 	private boolean down=false; //下
-	private String fx="enemyUp";
+	private String fx;
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
 	@Override
 	public void showElement(Graphics g) {
@@ -31,8 +31,13 @@ public class Enemy extends ElementObj{
 		int y=ran.nextInt(500);
 		this.setX(x);
 		this.setY(y);
-		if (!Objects.equals(str, fx))
+		if (!Objects.equals(str, fx)) {
 			fx = "enemyLeft";
+			left = true;
+		}else {
+			fx = "enemyUp";
+			up = true;
+		}
 		ImageIcon icon2 = GameLoad.imgMap.get(str);
 		this.setW(icon2.getIconWidth()-10);
 		this.setH(icon2.getIconHeight()-10);
@@ -59,7 +64,7 @@ public class Enemy extends ElementObj{
 	//设置时间限制，每一秒判断一次掉头，随机掉头
 	private void changeMove() {
 		moveTime++;
-		if (moveTime % 100 == 0) {//移动了一秒
+		if (moveTime % 100 == 0) {//每一段时间判断一次
 			Random ran=new Random();
 			String l = "enemyLeft";
 			String r = "enemyRight";
@@ -101,10 +106,11 @@ public class Enemy extends ElementObj{
 		this.setIcon(GameLoad.imgMap.get(fx));
 	}
 
-	//如果撞到了，那就自己回退
+	//如果撞到了，那就自己回退,并且设置自身计时为2
 	@Override
 	public void returnMove() {
-//		System.out.println("撞到了");
+		System.out.println("撞到了");
+//		moveTime = 2L;
 		if (up) this.setY(this.getY() + 2);
 		if (down) this.setY(this.getY() - 2);
 		if (left) this.setX(this.getX() + 2);

@@ -161,6 +161,10 @@ public abstract class ElementObj {
 	public void setType(int type) {
 		this.type= type;
 	}
+
+	protected void setMoveNum(int i) { //这个方法是用来设置移动的步数的，用于控制移动的速度
+		// TODO Auto-generated method stub
+	}
 }
 
 

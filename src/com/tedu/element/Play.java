@@ -145,16 +145,18 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	这个控制代码 自己写
 	@Override   //添加子弹
 	public void add(long gameTime) {//有啦时间就可以进行控制
-		if(!this.pkType) {//如果是不发射状态 就直接return
+		if(gameTime < filetime + 1 || !pkType) {//如果是不发射状态 就直接return
 			return;
 		}
-		this.pkType=false;//按一次，发射一个子弹。拼手速(也可以增加变量来控制)
+		filetime = gameTime;//按一次，发射一个子弹。拼手速(也可以增加变量来控制)
 //		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
 		ElementObj obj=GameLoad.getObj("file");  		
 		ElementObj element = obj.createElement(this.toString());
 		element.setType(1);
+		//设置子弹moveNum为10
+		element.setMoveNum(10);
 //		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);

@@ -42,7 +42,12 @@ public class PlayFile extends ElementObj{
 	@Override
 	public void showElement(Graphics g) {	
 		g.setColor(Color.red);// new Color(255,255,255)
-		g.fillOval(this.getX(), this.getY(), this.getW(), this.getH());
+		if (this.type == 2) {
+			g.fillOval(this.getX(), this.getY(), this.getW(), this.getH());
+		}else {
+			//绘制成正方形
+			g.fillRect(this.getX(), this.getY(), this.getW(), this.getH());
+		}
 	}	
 	@Override
 	protected void move() {
@@ -60,6 +65,9 @@ public class PlayFile extends ElementObj{
 		
 	}
 
+	public void setMoveNum(int moveNum) {
+		this.moveNum = moveNum;
+	}
 	/**
 	 * 对于子弹来说：1.出边界  2.碰撞  3.玩家放保险
 	 * 处理方式就是，当达到死亡的条件时，只进行 修改死亡状态的操作。

@@ -45,6 +45,7 @@ public class GameThread extends Thread {
 			gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
 			gameOver();
+//			展示游戏结果
 			//弹窗统计杀敌记录，休眠5秒
 			JFrame resultFrame = new JFrame("关卡结果");
 			JLabel killCountLabel = new JLabel("杀敌数: " + killCount);
@@ -217,6 +218,7 @@ public class GameThread extends Thread {
 			return true;
 		}
 		return false;
+	}
 }
 
 
