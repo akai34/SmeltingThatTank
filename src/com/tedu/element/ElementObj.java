@@ -21,6 +21,7 @@ public abstract class ElementObj {
 	private boolean live=true; //生存状态 true 代表存在，false代表死亡
 						 // 可以采用枚举值来定义这个(生存，死亡，隐身，无敌)
 //	注明：当重新定义一个用于判定状态的变量，需要思考：1.初始化 2.值的改变 3.值的判定
+	private int type = 0;//拓展了一个叫做type的类型用来表示子弹的类型，1为自己的，2为敌人的
 	public ElementObj() {	//这个构造其实没有作用，只是为继承的时候不报错写的	
 	}
 	/**
@@ -106,12 +107,7 @@ public abstract class ElementObj {
 	public boolean pk(ElementObj obj) {	
 		return this.getRectangle().intersects(obj.getRectangle());
 	}
-	//返回移动方向，1234代表上下左右
-	public void returnMove(){}
-	public int returnType(){return 0;}
-	public void setType(int type){}
-	
-	
+	public void returnMove(){}//额外添加的方法，用于返回移动方向，
 	
 	
 	
@@ -158,10 +154,13 @@ public abstract class ElementObj {
 		this.live = live;
 	}
 
-	
-	
-	
-	
+
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type= type;
+	}
 }
 
 

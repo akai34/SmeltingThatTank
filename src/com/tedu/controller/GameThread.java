@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import com.tedu.element.ElementObj;
 import com.tedu.element.Enemy;
+import com.tedu.element.MapObj;
 import com.tedu.element.Play;
 import com.tedu.manager.ElementManager;
 import com.tedu.manager.GameElement;
@@ -87,16 +88,19 @@ public class GameThread extends Thread {
 
 	private void gameRun() {
 		long gameTime = 0L;//给int类型就可以啦
-		while (!isFinished()) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
+		while (!isFinished() && !isDead()) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
 			Map<GameElement, List<ElementObj>> all = em.getGameElements();
 			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 			List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
 			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
+			List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
 			moveAndUpdate(all, gameTime);//	游戏元素自动化方法
 
-			ElementPK(enemys, files);
-			ElementPK(files, maps);
-			tankPkBlock(enemys, maps);
+			ElementPK(enemys, files); //敌人和玩家子弹的碰撞
+			ElementPK(maps, files); //子弹和地图的碰撞
+			ElementPK(play, files); //主角和子弹的碰撞
+			tankPkBlock(enemys, maps); //敌人和地图的碰撞
+			tankPkBlock(play, maps);	//主角和地图的碰撞
 			gameTime++;//唯一的时间控制
 			try {
 				sleep(10);//默认理解为 1秒刷新100次
@@ -110,19 +114,25 @@ public class GameThread extends Thread {
 	public void ElementPK(List<ElementObj> listA, List<ElementObj> listB) {
 //		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
 		for (int i = 0; i < listA.size(); i++) {
-			ElementObj enemy = listA.get(i);
+			ElementObj A = listA.get(i);
 			for (int j = 0; j < listB.size(); j++) {
-				ElementObj file = listB.get(j);
-				if (enemy.pk(file)) {
-//					问题： 如果是boos，那么也一枪一个吗？？？？
-//					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
+				ElementObj B = listB.get(j);
+				if (A.pk(B)) {
+//					为什么不能直接设置为false，因为子弹发射在体内，特别难改
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
 //					扩展 留给大家
-//					System.out.println(listB);
-					//只有我才能杀人
-					if (file.returnType() == 0) {
-						enemy.setLive(false);
-						file.setLive(false);
+					//如果是玩家子弹且承受者是敌人
+					if (B.getType()	== 1 && A.getClass() == Enemy.class) {
+						A.setLive(false);
+						B.setLive(false);
+					}//如果是敌人子弹且承受着是玩家
+					else if (B.getType() == 2 && A.getClass() == Play.class) {
+						A.setLive(false);
+						B.setLive(false);
+					}//如果承受者是墙体
+					else if (A.getClass() == MapObj.class) {
+						A.setLive(false);
+						B.setLive(false);
 					}
 					break;
 				}
@@ -190,7 +200,7 @@ public class GameThread extends Thread {
 
 	}
 
-	private boolean isFinished() {
+	private boolean isFinished() { //判断是否通关
 //		System.out.println("看看是不是空的");
 		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 		if (enemys.isEmpty()) {
@@ -200,6 +210,13 @@ public class GameThread extends Thread {
 		}
 		return false;
 	}
+	private boolean isDead() { //判断是否死亡
+		List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
+		if (play.isEmpty()) {
+			System.out.println("死了！！");
+			return true;
+		}
+		return false;
 }
 
 

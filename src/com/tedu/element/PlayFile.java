@@ -60,13 +60,6 @@ public class PlayFile extends ElementObj{
 		
 	}
 
-	public int returnType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
 	/**
 	 * 对于子弹来说：1.出边界  2.碰撞  3.玩家放保险
 	 * 处理方式就是，当达到死亡的条件时，只进行 修改死亡状态的操作。

@@ -154,10 +154,20 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
 		ElementObj obj=GameLoad.getObj("file");  		
 		ElementObj element = obj.createElement(this.toString());
+		element.setType(1);
 //		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
 //		如果要控制子弹速度等等。。。。还需要代码编写
+	}
+	//如果撞到了，那就自己回退
+	@Override
+	public void returnMove() {
+//		System.out.println("撞到了");
+		if (up) this.setY(this.getY() + 2);
+		if (down) this.setY(this.getY() - 2);
+		if (left) this.setX(this.getX() + 2);
+		if (right) this.setX(this.getX() - 2);
 	}
 	@Override
 	public String toString() {// 这里是偷懒，直接使用toString；建议自己定义一个方法
@@ -165,11 +175,11 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		int x=this.getX();
 		int y=this.getY();
 		switch(this.fx) { // 子弹在发射时候就已经给予固定的轨迹。可以加上目标，修改json格式
-		case "up": x+=10;break;
+		case "up": x+=7;y-=5; break;
 		// 一般不会写20等数值，一般情况下 图片大小就是显示大小；一般情况下可以使用图片大小参与运算
-		case "left": y+=10;break;
-		case "right": x+=25;y+=10;break;
-		case "down": y+=25;x+=10; break;
+		case "left": y+=8;x-=5;break;
+		case "right": x+=25;y+=8;break;
+		case "down": y+=25;x+=7; break;
 		}//个人认为： 玩游戏有助于 理解面向对象思想;不能专门玩，需要思考，父类应该怎么抽象，子类应该怎么实现
 //		学习技术不犯法，但是不要用技术做犯法的事.
 		return "x:"+x+",y:"+y+",f:"+this.fx;

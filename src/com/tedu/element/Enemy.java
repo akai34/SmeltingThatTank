@@ -117,7 +117,7 @@ public class Enemy extends ElementObj{
 			return;
 		ElementObj obj=GameLoad.getObj("file");
 		ElementObj element = obj.createElement(this.toString());
-		element.setType(1);
+		element.setType(2);
 //		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
@@ -130,11 +130,11 @@ public class Enemy extends ElementObj{
 		int y=this.getY();
 		String fxx = null;
 		switch(this.fx) { // 子弹在发射时候就已经给予固定的轨迹。可以加上目标，修改json格式
-			case "enemyUp": x+=10;fxx = "up";break;
+			case "enemyUp":  x+=7;y-=5; fxx = "up";break;
 			// 一般不会写20等数值，一般情况下 图片大小就是显示大小；一般情况下可以使用图片大小参与运算
-			case "enemyLeft": y+=10;fxx = "left"; break;
-			case "enemyRight": x+=25;y+=10;fxx="right"; break;
-			case "enemyDown": y+=25;x+=10;fxx="down"; break;
+			case "enemyLeft": y+=8;x-=5;fxx = "left"; break;
+			case "enemyRight": x+=25;y+=8;fxx="right"; break;
+			case "enemyDown": y+=25;x+=7;fxx="down"; break;
 		}//个人认为： 玩游戏有助于 理解面向对象思想;不能专门玩，需要思考，父类应该怎么抽象，子类应该怎么实现
 //		学习技术不犯法，但是不要用技术做犯法的事.
 		return "x:"+x+",y:"+y+",f:"+fxx;
