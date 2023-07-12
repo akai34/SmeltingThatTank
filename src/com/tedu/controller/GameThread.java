@@ -124,16 +124,16 @@ public class GameThread extends Thread {
 //					扩展 留给大家
 					//如果是玩家子弹且承受者是敌人
 					if (B.getType()	== 1 && A.getClass() == Enemy.class) {
-						A.setLive(false);
-						B.setLive(false);
+						A.setLive(B.getAttack());
+						B.setLive(A.getAttack());
 					}//如果是敌人子弹且承受着是玩家
 					else if (B.getType() == 2 && A.getClass() == Play.class) {
-						A.setLive(false);
-						B.setLive(false);
+						A.setLive(B.getAttack());
+						B.setLive(A.getAttack());
 					}//如果承受者是墙体
 					else if (A.getClass() == MapObj.class) {
-						A.setLive(false);
-						B.setLive(false);
+						A.setLive(B.getAttack());
+						B.setLive(A.getAttack());
 					}
 					break;
 				}
