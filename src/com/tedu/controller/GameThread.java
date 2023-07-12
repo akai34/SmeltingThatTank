@@ -19,6 +19,9 @@ import com.tedu.manager.GameElement;
 import com.tedu.manager.GameLoad;
 import com.tedu.show.GameMainJPanel;
 
+
+//引入playerMoveNum
+import static com.tedu.element.Play.playerMoveNum;
 /**
  * @author renjj
  * @说明 游戏的主线程，用于控制游戏加载，游戏关卡，游戏运行时自动化
@@ -95,6 +98,8 @@ public class GameThread extends Thread {
 			List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
 			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 			List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
+			//加一个Dianabol，道具类
+			List<ElementObj> dianabols = em.getElementsByKey(GameElement.DIANABOL);
 			moveAndUpdate(all, gameTime);//	游戏元素自动化方法
 
 			ElementPK(enemys, files); //敌人和玩家子弹的碰撞
@@ -102,6 +107,7 @@ public class GameThread extends Thread {
 			ElementPK(play, files); //主角和子弹的碰撞
 			tankPkBlock(enemys, maps); //敌人和地图的碰撞
 			tankPkBlock(play, maps);	//主角和地图的碰撞
+	//		tankPkDianabol(play, dianabols); //主角和道具的碰撞
 			gameTime++;//唯一的时间控制
 			try {
 				sleep(10);//默认理解为 1秒刷新100次
@@ -112,6 +118,25 @@ public class GameThread extends Thread {
 		}
 	}
 
+//	private void tankPkDianabol(List<ElementObj> play, List<ElementObj> dianabols) {
+//		for (int i = 0; i < play.size(); i++) {
+//			ElementObj player = play.get(i);//定义玩家的对象
+//			for (int j = 0; j < dianabols.size(); j++) {
+//				//定义道具箱的对象
+//				ElementObj dianabol = dianabols.get(j);
+//				//如果玩家和道具箱碰撞，或者玩家处于道具的范围内，玩家的攻击速度变化
+//				if (player.pk(dianabol) || player.getX()-dianabol.getX()<=50 && player.getY()-dianabol.getY()<=50) {
+//					//攻击速度变化
+//					//playerMoveNum+1 playerMoveNum是全局变量
+//					//输出玩家的移动速度
+//					System.out.println("玩家的移动速度为：" + playerMoveNum);
+//					playerMoveNum++;
+//					dianabol.setLive(false);
+//				}
+//			}
+//			}
+//		}
+
 	public void ElementPK(List<ElementObj> listA, List<ElementObj> listB) {
 //		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
 		for (int i = 0; i < listA.size(); i++) {
@@ -119,6 +144,8 @@ public class GameThread extends Thread {
 			for (int j = 0; j < listB.size(); j++) {
 				ElementObj B = listB.get(j);
 				if (A.pk(B)) {
+					//输出文字提醒谁射到了谁
+					System.out.println(A + "射到了" + B);
 //					为什么不能直接设置为false，因为子弹发射在体内，特别难改
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
 //					扩展 留给大家
@@ -175,6 +202,8 @@ public class GameThread extends Thread {
 //					list.remove(i--);  //可以使用这样的方式
 //					启动一个死亡方法(方法中可以做事情例如:死亡动画 ,掉装备)
 					obj.die();//需要大家自己补充
+					//输出提示，xx被移除
+					//System.out.println(obj + "被移除");
 					list.remove(i);
 					continue;
 				}
