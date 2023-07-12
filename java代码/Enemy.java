@@ -155,7 +155,7 @@ public class Enemy extends ElementObj{
 	@Override
 	/**
 	 * @author L
-	 * @改变 加入了碰撞后方向改变的判断
+	 * @改变 加入了碰撞后方向随机变成3个方向
 	 */
 	public void returnMove() {
 //		System.out.println("撞到了");
@@ -164,18 +164,21 @@ public class Enemy extends ElementObj{
 		if (left) this.setX(this.getX() + 2);
 		if (right) this.setX(this.getX() - 2);
 		//方向改变
-		if (up) {
-			setF(1);
+		Random ran=new Random();
+		int nxt=ran.nextInt(100)%4;//下一个方向
+		if (up && nxt==0) {
+			nxt=(nxt+(ran.nextInt()%3)+1)%4;
 		}
-		if (down) {
-			setF(0);
+		if (down && nxt==1) {
+			nxt=(nxt+(ran.nextInt()%3)+1)%4;
 		}
-		if (left) {
-			setF(3);
+		if (left && nxt==2) {
+			nxt=(nxt+(ran.nextInt()%3)+1)%4;
 		}
-		if (right) {
-			setF(2);
+		if (right && nxt==3) {
+			nxt=(nxt+(ran.nextInt()%3)+1)%4;
 		}
+		setF(nxt);
 	}
 	@Override   //添加子弹
 	public void add(long gameTime) {//有啦时间就可以进行控制
@@ -184,7 +187,7 @@ public class Enemy extends ElementObj{
 			return;
 		ElementObj obj=GameLoad.getObj("file");
 		ElementObj element = obj.createElement(this.toString());
-		element.setType(1);
+		element.setType(2);
 //		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
