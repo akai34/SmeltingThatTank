@@ -51,10 +51,10 @@ public class MapObj extends ElementObj{
 		return this;
 	}
 	@Override  //说明 这个设置扣血等的方法 需要自己思考重新编写。
-		public void setLive(boolean live) {
+	public void setLive(double attack) {
 //			被调用一次 就减少一次血。
 			if("IRON".equals(name)) {// 水泥墙需要4下
-				this.hp--;
+				this.hp-=attack;
 				if(this.hp >0) {
 					return;
 				}

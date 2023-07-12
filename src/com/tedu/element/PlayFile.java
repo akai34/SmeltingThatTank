@@ -53,7 +53,7 @@ public class PlayFile extends ElementObj{
 	protected void move() {
 		if(this.getX()<0 || this.getX() >800 ||
 				this.getY() <0 || this.getY()>600) {
-			this.setLive(false);
+			this.setLive(this.getHp()+1);
 			return;
 		}
 		switch(this.fx) {
