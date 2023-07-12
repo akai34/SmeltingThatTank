@@ -57,40 +57,45 @@ public class Enemy extends ElementObj{
 	}
 	private Long moveTime = 0L;
 	//设置时间限制，每一秒判断一次掉头，随机掉头
+	/**
+	 * @author L
+	 * @说明： 加入了AI随机上下左右掉头
+	 */
 	private void changeMove() {
 		moveTime++;
 		if (moveTime % 100 == 0) {//移动了一秒
 			Random ran=new Random();
-			String l = "enemyLeft";
-			String r = "enemyRight";
-			String u = "enemyUp";
-			String d = "enemyDown";
-			if (Objects.equals(fx, l) || Objects.equals(fx, r)){
-				int judge = ran.nextInt(100)%2;
-				if (judge == 0){
-					fx = l;
-					left = true;
-					right = false;
-				}
-				else {
-					fx = r;
-					right = true;
-					left = false;
-				}
-			}
-			else {
-				int judge = ran.nextInt(100)%2;
-				if (judge == 0){
-					fx = u;
-					up = true;
-					down = false;
-				}
-				else {
-					fx = d;
-					down = true;
-					up = false;
-				}
-			}
+			setF(ran.nextInt(100)%4);
+//			String l = "enemyLeft";
+//			String r = "enemyRight";
+//			String u = "enemyUp";
+//			String d = "enemyDown";
+//			if (Objects.equals(fx, l) || Objects.equals(fx, r)){
+//				int judge = ran.nextInt(100)%2;
+//				if (judge == 0){
+//					fx = l;
+//					left = true;
+//					right = false;
+//				}
+//				else {
+//					fx = r;
+//					right = true;
+//					left = false;
+//				}
+//			}
+//			else {
+//				int judge = ran.nextInt(100)%2;
+//				if (judge == 0){
+//					fx = u;
+//					up = true;
+//					down = false;
+//				}
+//				else {
+//					fx = d;
+//					down = true;
+//					up = false;
+//				}
+//			}
 		}
 	}
 	
