@@ -10,6 +10,10 @@ import com.tedu.manager.ElementManager;
 import com.tedu.manager.GameElement;
 import com.tedu.manager.GameLoad;
 
+//定义一个全局变量playerMoveNum,用来记录玩家移动的速度
+
+
+
 public class Play extends ElementObj /* implements Comparable<Play>*/{
 	/**
 	 * 移动属性:
@@ -156,7 +160,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		ElementObj element = obj.createElement(this.toString());
 		element.setType(1);
 		//设置子弹moveNum为10
-		element.setMoveNum(10);
+		element.setMoveNum(playerMoveNum);
 //		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
@@ -186,9 +190,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //		学习技术不犯法，但是不要用技术做犯法的事.
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
-	
-	
-	
+
+
+	public static int playerMoveNum = 2;
 }
 
 //try {
