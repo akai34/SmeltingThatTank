@@ -22,6 +22,13 @@ public abstract class ElementObj {
 						 // 可以采用枚举值来定义这个(生存，死亡，隐身，无敌)
 //	注明：当重新定义一个用于判定状态的变量，需要思考：1.初始化 2.值的改变 3.值的判定
 	private int type = 0;//拓展了一个叫做type的类型用来表示子弹的类型，1为自己的，2为敌人的
+	//血量、攻击、当前血量、速度blood，bloodNow、attack、moveNum
+	private int blood;
+	private int bloodNow;
+	private int attack;
+	private int moveNum;
+	private int speed;
+	private int speedNow;
 	public ElementObj() {	//这个构造其实没有作用，只是为继承的时候不报错写的	
 	}
 	/**
@@ -162,8 +169,36 @@ public abstract class ElementObj {
 		this.type= type;
 	}
 
-	protected void setMoveNum(int i) { //这个方法是用来设置移动的步数的，用于控制移动的速度
-		// TODO Auto-generated method stub
+	//血量、攻击、当前血量、速度blood，bloodNow、attack、moveNum的get和set方法
+	public int getBlood() {
+		return blood;
+	}
+	public void setBlood(int blood) {
+		this.blood = blood;
+	}
+	public int getBloodNow() {
+		return bloodNow;
+	}
+	public void setBloodNow(int bloodNow) {
+		this.bloodNow = bloodNow;
+	}
+	public int getAttack() {
+		return attack;
+	}
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+	public void setMoveNum(int moveNum) {
+		this.moveNum = moveNum;
+	}
+	public int getMoveNum() {
+		return moveNum;
+	}
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	public int getSpeed() {
+		return speed;
 	}
 }
 
