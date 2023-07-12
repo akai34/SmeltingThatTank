@@ -107,7 +107,8 @@ public abstract class ElementObj {
 	public boolean pk(ElementObj obj) {	
 		return this.getRectangle().intersects(obj.getRectangle());
 	}
-	public void returnMove(){}//额外添加的方法，用于返回移动方向，
+	public void returnMove(){
+	}//额外添加的方法，用于返回移动方向，
 	
 	
 	
