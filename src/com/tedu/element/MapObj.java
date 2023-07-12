@@ -32,6 +32,11 @@ public class MapObj extends ElementObj{
 					this.hp=4;
 					name="IRON";
 					break;
+					//新增一个道具类型的墙，这个墙可以被打掉，打掉之后会出现一个道具
+		case "Dianabol": icon=new ImageIcon("image/wall/Dianabol.png");
+					this.hp=999;
+					name="Dianabol";
+					break;
 		}
 //		this.hp = 20;
 		int x=Integer.parseInt(arr[1]);
@@ -49,6 +54,13 @@ public class MapObj extends ElementObj{
 		public void setLive(boolean live) {
 //			被调用一次 就减少一次血。
 			if("IRON".equals(name)) {// 水泥墙需要4下
+				this.hp--;
+				if(this.hp >0) {
+					return;
+				}
+			}
+			//如果是道具墙，那么需要判断是否还有血量
+			if("Dianabol".equals(name)) {
 				this.hp--;
 				if(this.hp >0) {
 					return;

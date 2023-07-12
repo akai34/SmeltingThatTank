@@ -109,7 +109,7 @@ public class Enemy extends ElementObj{
 	//如果撞到了，那就自己回退,并且设置自身计时为2
 	@Override
 	public void returnMove() {
-		System.out.println("撞到了");
+		//System.out.println("撞到了");
 //		moveTime = 2L;
 		if (up) this.setY(this.getY() + 2);
 		if (down) this.setY(this.getY() - 2);
