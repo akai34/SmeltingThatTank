@@ -58,22 +58,28 @@ public class GameLoad {
 				String [] arrs=pro.getProperty(key).split(";");
 				for(int i=0;i<arrs.length;i++) {
 //					System.out.println(key);
+					ElementObj obj = null;
 					if (Objects.equals(key, "ENEMY")) {
 //						System.out.println(key);
-						ElementObj obj=getObj("enemy");
+						obj = getObj("enemy");
 						String enemyType = "enemyUp";
+
 						if (Objects.equals(arrs[i], "1")) {
 							enemyType = "enemyLeft";
 						}
 						ElementObj element = obj.createElement(enemyType);
 						em.addElement(element, GameElement.ENEMY);
 					}
+
+
 					else {
-						ElementObj element = new MapObj().createElement(key+","+arrs[i]);
+						ElementObj element = new MapObj().createElement(key + "," + arrs[i]);
 						em.addElement(element, GameElement.MAPS);
 					}
 				}
 			}
+			//打印出em中的所有元素
+			System.out.println(em);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
