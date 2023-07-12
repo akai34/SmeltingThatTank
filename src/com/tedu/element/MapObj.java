@@ -54,6 +54,14 @@ public class MapObj extends ElementObj{
 					return;
 				}
 			}
+			//如果是道具墙，那么需要判断是否还有血量
+			if("Dianabol".equals(name)) {
+				this.hp--;
+				if(this.hp >0) {
+					return;
+				}
+			}
+			super.setLive(this.hp+1);
 		}
 	
 	
