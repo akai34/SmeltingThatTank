@@ -54,10 +54,12 @@ public class GameMainJPanel extends JPanel implements Runnable{
 			List<ElementObj> list = all.get(ge);
 			for(int i=0;i<list.size();i++) {
 				ElementObj obj=list.get(i);//读取为基类
-//				if(ge.equals(GameElement.PLAYFILE)) {
-//					System.out.println(":::::::::::"+obj);
-//				}
 				obj.showElement(g);//调用每个类的自己的show方法完成自己的显示
+			}
+			//血量最后绘制，不然会被覆盖
+			for(int i=0;i<list.size();i++) {
+				ElementObj obj=list.get(i);//读取为基类、
+				obj.showBloodNow(g);
 			}
 		}
 		
