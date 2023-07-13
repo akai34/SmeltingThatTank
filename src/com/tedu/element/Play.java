@@ -161,6 +161,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		element.setType(1);
 		//设置子弹moveNum为10
 		element.setMoveNum(playerMoveNum);
+
 		//设置子弹的攻击力
 		element.setAttack(this.getAttack());
 //		System.out.println("子弹是否为空"+element);
