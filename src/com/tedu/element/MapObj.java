@@ -34,7 +34,7 @@ public class MapObj extends ElementObj{
 					break;
 					//新增一个道具类型的墙，这个墙可以被打掉，打掉之后会出现一个道具
 		case "Dianabol": icon=new ImageIcon("image/wall/Dianabol.png");
-					this.hp=999;
+					this.hp=5;
 					name="Dianabol";
 					break;
 		}
@@ -61,9 +61,14 @@ public class MapObj extends ElementObj{
 			}
 			//如果是道具墙，那么需要判断是否还有血量
 			if("Dianabol".equals(name)) {
-				this.hp-=attack;
+				System.out.println("射到道具");
+				this.hp-=1;
 				if(this.hp >0) {
 					return;
+				}
+				//如果血量为0，那么弹出提示说，你已经获得了一个道具
+				if (this.hp == 0) {
+					System.out.println("你已经获得了一个道具");
 				}
 			}
 			super.setLive(this.hp+1);
