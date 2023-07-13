@@ -54,6 +54,21 @@ public abstract class ElementObj {
      */
     public abstract void showElement(Graphics g);
 
+    public void showBloodNow(Graphics g) { //显示当前血量
+        //如果没有掉血，就不显示、
+        if (this.getHp() == this.getHpNow()) {
+            return;
+        }
+        //如果为子弹，就不显示
+        if (this instanceof PlayFile) {
+            return;
+        }
+        //设置颜色为红色
+        g.setColor(java.awt.Color.RED);
+        g.drawRect(this.getX(), this.getY() - 10, this.getW(), 5);
+        g.fillRect(this.getX(), this.getY() - 10, (int) (this.getW() * this.getHpNow() / this.getHp()), 5);
+    }
+
     /**
      * @param bl  点击的类型  true代表按下，false代表松开
      * @param key 代表触发的键盘的code值
@@ -177,8 +192,8 @@ public abstract class ElementObj {
 
     public void setLive(double atk) { //被调用了就减少其声明
 //			被调用一次 就减少一次血。
-		this.hp -= atk;
-		if (this.hp <= 0) {
+		this.hpNow -= atk;
+		if (this.hpNow <= 0) {
 			this.live = false;
 		}
     }
@@ -196,8 +211,9 @@ public abstract class ElementObj {
 	public double getHp() {
 		return hp;
 	}
-	public void setHp(double hp) {
+	public void setHp(double hp) {//设置血量的同时，将当前血量也设置为血量
 		this.hp = hp;
+        this.hpNow = hp;
 	}
 	public double getHpNow() {
 		return hpNow;

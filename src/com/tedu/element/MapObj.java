@@ -34,7 +34,7 @@ public class MapObj extends ElementObj{
 					break;
 					//新增一个道具类型的墙，这个墙可以被打掉，打掉之后会出现一个道具
 		case "Dianabol": icon=new ImageIcon("image/wall/Dianabol.png");
-					this.hp=999;
+					this.hp=5;
 					name="Dianabol";
 					break;
 		}
@@ -50,24 +50,25 @@ public class MapObj extends ElementObj{
 		this.setIcon(icon);
 		return this;
 	}
-	@Override  //说明 这个设置扣血等的方法 需要自己思考重新编写。
-	public void setLive(double attack) {
-//			被调用一次 就减少一次血。
-			if("IRON".equals(name)) {// 水泥墙需要4下
-				this.hp-=attack;
-				if(this.hp >0) {
-					return;
-				}
-			}
-			//如果是道具墙，那么需要判断是否还有血量
-			if("Dianabol".equals(name)) {
-				this.hp-=attack;
-				if(this.hp >0) {
-					return;
-				}
-			}
-			super.setLive(this.hp+1);
-		}
+//	@Override  //说明 这个设置扣血等的方法 需要自己思考重新编写。
+//	public void setLive(double attack) {
+////			被调用一次 就减少一次血。
+//			if("IRON".equals(name)) {// 水泥墙需要4下
+//				this.hp-=attack;
+//				if(this.hp < 0) {
+//
+//					return;
+//				}
+//			}
+//			//如果是道具墙，那么需要判断是否还有血量
+//			if("Dianabol".equals(name)) {
+//				this.hp-=1;
+//				if(this.hp >0) {
+//					return;
+//				}
+//			}
+////			super.setLive(this.hp+1);
+//		}
 	
 	
 }
