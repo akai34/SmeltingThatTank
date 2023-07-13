@@ -57,7 +57,7 @@ public class Dianabol extends ElementObj {
 
     @Override
     public void showElement(Graphics g) {
-        System.out.println("Dianabol.showElement触发");
+        //System.out.println("Dianabol.showElement触发");
 
         g.drawImage(this.getIcon().getImage(),
                 this.getX(), this.getY(),

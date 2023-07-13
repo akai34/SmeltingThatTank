@@ -52,7 +52,7 @@ public class GameMainJPanel extends JPanel implements Runnable{
 //		GameElement.values();//隐藏方法  返回值是一个数组,数组的顺序就是定义枚举的顺序
 		for(GameElement ge:GameElement.values()) {
 			//输出现在是哪个枚举
-			System.out.println(ge);
+			//System.out.println(ge);
 			List<ElementObj> list = all.get(ge);
 			for(int i=0;i<list.size();i++) {
 				ElementObj obj=list.get(i);//读取为基类
