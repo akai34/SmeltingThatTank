@@ -76,8 +76,28 @@ public class GameThread extends Thread {
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
 //		加载敌人NPC等
 		GameLoad.MapLoad(checkPoint);//可以变为 变量，每关卡重新加载  加载地图
-//		加载主角
+//		加载敌人NPC
 		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
+		//获取主角信息
+		List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
+		//设置敌人和玩家血量为100，攻击力为20
+		for (ElementObj enemy : enemys) {
+			Enemy e = (Enemy) enemy;
+			e.setHp(100);
+			e.setAttack(20);
+		}
+		//设置主角血量为100，攻击力为20
+		for (ElementObj p : play) {
+			Play play1 = (Play) p;
+			play1.setHp(100);
+			play1.setAttack(5);
+		}
+		//设置砖块血量为100
+		List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
+		for (ElementObj map : maps) {
+			MapObj m = (MapObj) map;
+			m.setHp(100);
+		}
 		killCount += enemys.size();
 //		全部加载完成，游戏启动
 	}
@@ -145,7 +165,7 @@ public class GameThread extends Thread {
 				ElementObj B = listB.get(j);
 				if (A.pk(B)) {
 					//输出文字提醒谁射到了谁
-					System.out.println(A + "射到了" + B);
+//					System.out.println(A + "射到了" + B);
 //					为什么不能直接设置为false，因为子弹发射在体内，特别难改
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
 //					扩展 留给大家
