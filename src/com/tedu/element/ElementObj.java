@@ -17,13 +17,13 @@ public abstract class ElementObj {
     private int h;
     private ImageIcon icon;
     //	还有。。。。 各种必要的状态值，例如：是否生存.
-    private boolean live = true; //生存状态 true 代表存在，false代表死亡
+    boolean live = true; //生存状态 true 代表存在，false代表死亡
     // 可以采用枚举值来定义这个(生存，死亡，隐身，无敌)
 //	注明：当重新定义一个用于判定状态的变量，需要思考：1.初始化 2.值的改变 3.值的判定
     private int type = 0;//拓展了一个叫做type的类型用来表示子弹的类型，1为自己的，2为敌人的
     //血量、攻击、当前血量、速度hp,hpNow、attack、moveNum
     private double hp;
-    private double hpNow;
+    double hpNow;
     private double attack;
     private int moveNum;
     private int speed;

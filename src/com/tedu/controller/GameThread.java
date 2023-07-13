@@ -127,7 +127,7 @@ public class GameThread extends Thread {
 			ElementPK(play, files); //主角和子弹的碰撞
 			tankPkBlock(enemys, maps); //敌人和地图的碰撞
 			tankPkBlock(play, maps);	//主角和地图的碰撞
-	//		tankPkDianabol(play, dianabols); //主角和道具的碰撞
+			tankPkDianabol(play, dianabols); //主角和道具的碰撞
 			gameTime++;//唯一的时间控制
 			try {
 				sleep(10);//默认理解为 1秒刷新100次
@@ -138,24 +138,31 @@ public class GameThread extends Thread {
 		}
 	}
 
-//	private void tankPkDianabol(List<ElementObj> play, List<ElementObj> dianabols) {
-//		for (int i = 0; i < play.size(); i++) {
-//			ElementObj player = play.get(i);//定义玩家的对象
-//			for (int j = 0; j < dianabols.size(); j++) {
-//				//定义道具箱的对象
-//				ElementObj dianabol = dianabols.get(j);
-//				//如果玩家和道具箱碰撞，或者玩家处于道具的范围内，玩家的攻击速度变化
-//				if (player.pk(dianabol) || player.getX()-dianabol.getX()<=50 && player.getY()-dianabol.getY()<=50) {
-//					//攻击速度变化
-//					//playerMoveNum+1 playerMoveNum是全局变量
-//					//输出玩家的移动速度
-//					System.out.println("玩家的移动速度为：" + playerMoveNum);
-//					playerMoveNum++;
-//					dianabol.setLive(false);
-//				}
-//			}
-//			}
-//		}
+	private void tankPkDianabol(List<ElementObj> play, List<ElementObj> dianabols) {
+		System.out.println("pkDianabol触发");
+		for (int i = 0; i < play.size(); i++) {
+			ElementObj player = play.get(i);//定义玩家的对象
+			for (int j = 0; j < dianabols.size(); j++) {
+				//定义道具箱的对象
+				ElementObj dianabol = dianabols.get(j);
+				//如果玩家和道具箱碰撞，或者玩家处于道具的范围内，玩家的攻击速度变化
+				if (player.pk(dianabol)) {
+					//攻击速度变化
+					//playerMoveNum+1 playerMoveNum是全局变量
+					//输出玩家的移动速度
+					playerMoveNum+=2;
+					System.out.println("玩家的移动速度为：" + playerMoveNum);
+					//设置玩家的攻击力
+					for (ElementObj p : play) {
+						Play play1 = (Play) p;
+						play1.setAttack(play1.getAttack()+1);
+					}
+
+					dianabol.setLive(999999);
+				}
+			}
+			}
+		}
 
 	public void ElementPK(List<ElementObj> listA, List<ElementObj> listB) {
 //		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态

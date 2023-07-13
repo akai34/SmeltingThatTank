@@ -10,6 +10,7 @@ import com.tedu.element.ElementObj;
 import com.tedu.element.Enemy;
 import com.tedu.element.MapObj;
 import com.tedu.element.Play;
+import com.tedu.element.Dianabol;
 
 /**
  * @说明  加载器(工具：用户读取配置文件的工具)工具类,大多提供的是 static方法
