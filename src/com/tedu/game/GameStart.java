@@ -19,7 +19,7 @@ public class GameStart {
 		GameThread th=new GameThread();
 //		注入
 		gj.setjPanel(jp);
-		gj.setKeyListener(listener);
+		gj.setKeyListener(listener );
 		gj.setThead(th);
 		
 		gj.start();

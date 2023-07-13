@@ -189,6 +189,8 @@ public class Enemy extends ElementObj{
 		ElementObj element = obj.createElement(this.toString());
 		element.setType(2);
 //		System.out.println("子弹是否为空"+element);
+		//设置子弹的攻击力
+		element.setAttack(this.getAttack());
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
 //		如果要控制子弹速度等等。。。。还需要代码编写
