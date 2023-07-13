@@ -6,3 +6,5 @@ enemyLeft=image/tank/play2/player2_left.png
 enemyDown=image/tank/play2/player2_down.png
 enemyRight=image/tank/play2/player2_right.png
 enemyUp=image/tank/play2/player2_up.png
+addattack=image/addattack.png
+addblood=image/addblood.png

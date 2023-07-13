@@ -1,5 +1,9 @@
 package com.tedu.element;
 
+import com.tedu.manager.ElementManager;
+import com.tedu.manager.GameElement;
+import com.tedu.manager.GameLoad;
+
 import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
@@ -50,26 +54,37 @@ public class MapObj extends ElementObj{
 		this.setIcon(icon);
 		return this;
 	}
-//	@Override  //说明 这个设置扣血等的方法 需要自己思考重新编写。
-//	public void setLive(double attack) {
-////			被调用一次 就减少一次血。
-//			if("IRON".equals(name)) {// 水泥墙需要4下
-//				this.hp-=attack;
-//				if(this.hp < 0) {
-//
-//					return;
-//				}
-//			}
-//			//如果是道具墙，那么需要判断是否还有血量
-//			if("Dianabol".equals(name)) {
-//				this.hp-=1;
-//				if(this.hp >0) {
-//					return;
-//				}
-//			}
-////			super.setLive(this.hp+1);
-//		}
-	
+	@Override  //说明 这个设置扣血等的方法 需要自己思考重新编写。
+	public void setLive(double atk) {
+//			被调用一次 就减少一次血。
+		if ("IRON".equals(name)) {// 水泥墙需要4下
+			this.hpNow -= atk;
+			if (this.hpNow < 0) {
+				return;
+			}
+		}
+		//如果是道具墙，那么需要做特殊判断生产
+		if ("Dianabol".equals(name)) {
+			this.hpNow -= atk;
+			if (this.hpNow > 0) {
+				return;
+			}
+			//如果小于0，触发创建道具的方法
+			else if (this.hpNow <= 0) {
+				//创建道具
+				//输出提示消息：创建了一个道具
+				System.out.println("创建了一个道具");
+				String DianabolStr="000";
+				ElementObj obj= GameLoad.getObj("Dianabol");
+				ElementObj element = obj.createElement(DianabolStr);
+				ElementManager.getManager().addElement(element, GameElement.DIANABOL);
+				System.out.println("已经加入到道具集合中了");
+				this.live = false;
+			}
+
+		}
+		super.setLive(atk);
+	}
 	
 }
 
