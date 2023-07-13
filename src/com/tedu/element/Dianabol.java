@@ -27,6 +27,8 @@ public class Dianabol extends ElementObj {
     @Override
     //重写createElement方法
     public ElementObj createElement(String str) {
+
+        System.out.println("Dianabol.createElement触发");
         //设置位置,打爆以后随机出一个位置的道具
         Random ran=new Random();
         int x=ran.nextInt(800);
@@ -36,31 +38,27 @@ public class Dianabol extends ElementObj {
         //设置大小
         this.setW(50);
         this.setH(50);
-        //50%概率触发addblood,50%触发addattack
-//        int probability=ran.nextInt(100);
-//        if(probability<50){
-//            //设置图片
-//            this.setIcon(new ImageIcon("/image/addattack.png"));
-//        }else{
-//            this.setIcon(new ImageIcon("/image/addblood.png"));
-//        }
-//        //设置效果
-//        this.setAddblood(10);
-//        this.setAddattack(10);
+//        50%概率触发addblood,50%触发addattack
 
+        int probability=ran.nextInt(100);
+        if(probability<50){
+            //设置图片
+            this.setIcon(new ImageIcon("image/addattact.png"));
+        }else{
+            this.setIcon(new ImageIcon("image/addblood.png"));
+        }
         return this;
     }
 
 //    @Override
 //    protected void updateImage() {
-////		ImageIcon icon=GameLoad.imgMap.get(fx);
-////		System.out.println(icon.getIconHeight());//得到图片的高度
-////		如果高度是小于等于0 就说明你的这个图片路径有问题
-//        this.setIcon(GameLoad.imgMap.get(addblood));
+//
 //    }
 
     @Override
     public void showElement(Graphics g) {
+        System.out.println("Dianabol.showElement触发");
+
         g.drawImage(this.getIcon().getImage(),
                 this.getX(), this.getY(),
                 this.getW(), this.getH(), null);
