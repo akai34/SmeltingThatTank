@@ -34,7 +34,7 @@ public class MapObj extends ElementObj{
 					break;
 					//新增一个道具类型的墙，这个墙可以被打掉，打掉之后会出现一个道具
 		case "Dianabol": icon=new ImageIcon("image/wall/Dianabol.png");
-					this.hp=999;
+					this.hp=5;
 					name="Dianabol";
 					break;
 		}
