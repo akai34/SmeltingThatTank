@@ -27,7 +27,6 @@ public abstract class ElementObj {
     private double attack;
     private int moveNum;
     private int speed;
-    private int speedNow;
 
     public ElementObj() {    //这个构造其实没有作用，只是为继承的时候不报错写的
     }
