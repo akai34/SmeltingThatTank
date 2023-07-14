@@ -17,6 +17,7 @@ public class MainMenuJFrame extends JFrame {
         setTitle("坦克大战");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
+        setLocationRelativeTo(null); // 将窗口居中显示
 
         // 创建自定义面板
         JPanel backgroundPanel = new JPanel() {
@@ -24,7 +25,7 @@ public class MainMenuJFrame extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // 绘制背景图片
-                ImageIcon backgroundImage = new ImageIcon("image/background/yulin.png");
+                ImageIcon backgroundImage = new ImageIcon("image/login_background.png");
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
@@ -105,6 +106,14 @@ public class MainMenuJFrame extends JFrame {
                 // 在这里添加显示制作人员信息的逻辑
                 // 可以打开一个新的窗口或者显示对话框等
                 System.out.println("点击了制作人员显示按钮");
+
+                //打开制作人员信息窗口
+                dispose();//关闭主菜单界面
+                CreditsJFrame creditsJFrame = new CreditsJFrame();
+                creditsJFrame.setVisible(true);
+
+
+
             }
         });
     }
