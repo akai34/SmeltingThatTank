@@ -31,7 +31,7 @@ public class Dianabol extends ElementObj {
         System.out.println("Dianabol.createElement触发");
         //设置位置,打爆以后随机出一个位置的道具
         Random ran=new Random();
-        int x=ran.nextInt(800);
+        int x=ran.nextInt(780);
         int y=ran.nextInt(500);
         this.setX(x);
         this.setY(y);

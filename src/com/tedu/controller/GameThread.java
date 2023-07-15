@@ -59,7 +59,6 @@ public class GameThread extends Thread {
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
-//			System.out.println("-------qchu--------");
 			resultFrame.dispose();
 			if (checkPoint == 3)
 				break;
@@ -139,7 +138,6 @@ public class GameThread extends Thread {
 	}
 
 	private void tankPkDianabol(List<ElementObj> play, List<ElementObj> dianabols) {
-//		System.out.println("pkDianabol触发");
 		for (int i = 0; i < play.size(); i++) {
 			ElementObj player = play.get(i);//定义玩家的对象
 			for (int j = 0; j < dianabols.size(); j++) {
@@ -183,7 +181,6 @@ public class GameThread extends Thread {
 				ElementObj B = listB.get(j);
 				if (A.pk(B)) {
 					//输出文字提醒谁射到了谁
-//					System.out.println(A + "射到了" + B);
 //					为什么不能直接设置为false，因为子弹发射在体内，特别难改
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
 //					扩展 留给大家
@@ -212,8 +209,8 @@ public class GameThread extends Thread {
 			ElementObj tank = listA.get(i);
 			for (int j = 0; j < listB.size(); j++) {
 				ElementObj block = listB.get(j);
-				if (tank.pk(block) || tank.getX() < 0 || tank.getX() > 800 ||
-						tank.getY() < 0 || tank.getY() > 600) {
+				if (tank.pk(block) || tank.getX() < 0 || tank.getX() > 780 ||
+						tank.getY() < 0 || tank.getY() > 580) {
 //					问题： 如果是boos，那么也一枪一个吗？？？？
 //					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
@@ -237,7 +234,7 @@ public class GameThread extends Thread {
 			for (int i = list.size() - 1; i >= 0; i--) {
 				ElementObj obj = list.get(i);//读取为基类
 				if (!obj.isLive()) {//如果死亡
-					if (obj instanceof Enemy) {
+					if (obj instanceof Enemy || obj instanceof Boss) {
 						addKillCount();
 					}
 //					list.remove(i--);  //可以使用这样的方式
@@ -279,9 +276,9 @@ public class GameThread extends Thread {
 		if (EnemyCreate.nowRound < EnemyCreate.rounds) {
 			return false;
 		}
-//		System.out.println("看看是不是空的");
 		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
-		if (enemys.isEmpty()) {
+		List<ElementObj> Boss = em.getElementsByKey(GameElement.BOSS);
+		if (enemys.isEmpty() && Boss.isEmpty()) {
 			System.out.println("空的！！");
 			checkPoint++;
 			return true;

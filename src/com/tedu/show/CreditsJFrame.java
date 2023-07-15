@@ -28,7 +28,7 @@ public class CreditsJFrame extends JFrame {
         panel.add(titleLabel);
 
         // 添加制作人员名字标签
-        JLabel nameLabel = new JLabel("制作人员：林杨超（组长），陈锐敬，庄宇霖，陈书朗，李梓健");
+        JLabel nameLabel = new JLabel("制作人员：陈书朗（组长），陈锐敬，庄宇霖，林杨超，李梓健");
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         nameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         panel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距

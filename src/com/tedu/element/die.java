@@ -58,7 +58,7 @@ public class die extends ElementObj {
 
     @Override
     public void showElement(Graphics g) {
-        System.out.println("die.showElement触发");
+//        System.out.println("die.showElement触发");
         if(live != false){
 
 

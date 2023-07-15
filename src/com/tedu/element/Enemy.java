@@ -31,7 +31,6 @@ public class Enemy extends ElementObj{
 	}
 	@Override
 	public ElementObj createElement(String str) {
-//		String enemyType = "400,0,"+HP+","+ATK+",enemy";
 		String[] split = str.split(",");
 		this.setX(Integer.parseInt(split[0]));
 		this.setY(Integer.parseInt(split[1]));
@@ -55,10 +54,10 @@ public class Enemy extends ElementObj{
 		if (this.up  && this.getY()>0) {
 			this.setY(this.getY() - 1);
 		}
-		if (this.right && this.getX()<800-this.getW()) {  //坐标的跳转由大家来完成
+		if (this.right && this.getX()<780-this.getW()) {  //坐标的跳转由大家来完成
 			this.setX(this.getX() + 1);
 		}
-		if (this.down && this.getY()<600-this.getH()) {
+		if (this.down && this.getY()<580-this.getH()) {
 			this.setY(this.getY() + 1);
 		}
 	}
@@ -73,40 +72,8 @@ public class Enemy extends ElementObj{
 		if (moveTime % 100 == 0) {//移动了一秒
 			Random ran=new Random();
 			setF(ran.nextInt(100)%4);
-//			String l = "enemyLeft";
-//			String r = "enemyRight";
-//			String u = "enemyUp";
-//			String d = "enemyDown";
-//			if (Objects.equals(fx, l) || Objects.equals(fx, r)){
-//				int judge = ran.nextInt(100)%2;
-//				if (judge == 0){
-//					fx = l;
-//					left = true;
-//					right = false;
-//				}
-//				else {
-//					fx = r;
-//					right = true;
-//					left = false;
-//				}
-//			}
-//			else {
-//				int judge = ran.nextInt(100)%2;
-//				if (judge == 0){
-//					fx = u;
-//					up = true;
-//					down = false;
-//				}
-//				else {
-//					fx = d;
-//					down = true;
-//					up = false;
-//				}
-//			}
 		}
 	}
-	
-	
 	
 	@Override
 	protected void updateImage() {
