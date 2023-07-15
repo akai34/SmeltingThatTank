@@ -13,14 +13,28 @@ public class MainMenuJFrame extends JFrame {
     private JButton quitButton;
     private JButton showCreditsButton;
 
-    public MainMenuJFrame() {
+    public MainMenuJFrame()  {
         setTitle("坦克大战");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
+        setLocationRelativeTo(null); // 将窗口居中显示
 
-        // 创建面板
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
+        // 创建自定义面板
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // 绘制背景图片
+                ImageIcon backgroundImage = new ImageIcon("image/login_background.png");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        backgroundPanel.setLayout(new BorderLayout());
+
+        // 创建按钮面板
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false); // 设置面板透明
+        buttonPanel.setLayout(new GridBagLayout());
 
         // 创建按钮
         startButton = new JButton("开始游戏");
@@ -28,12 +42,23 @@ public class MainMenuJFrame extends JFrame {
         showCreditsButton = new JButton("制作人员显示");
 
         // 添加按钮到面板
-        panel.add(startButton);
-        panel.add(showCreditsButton);
-        panel.add(quitButton);
+        buttonPanel.add(startButton);
+        buttonPanel.add(showCreditsButton);
+        buttonPanel.add(quitButton);
 
-        // 添加面板到窗口
-        add(panel);
+        // 设置按钮样式
+        Font buttonFont = new Font(Font.SANS_SERIF, Font.BOLD, 24);
+        startButton.setFont(buttonFont);
+        showCreditsButton.setFont(buttonFont);
+        quitButton.setFont(buttonFont);
+
+        // 将按钮面板添加到自定义面板的中间
+        backgroundPanel.add(buttonPanel, BorderLayout.CENTER);
+
+        // 设置自定义面板为内容面板
+        setContentPane(backgroundPanel);
+
+
 
         // 给开始按钮添加点击事件处理
         startButton.addActionListener(new ActionListener() {
@@ -81,6 +106,14 @@ public class MainMenuJFrame extends JFrame {
                 // 在这里添加显示制作人员信息的逻辑
                 // 可以打开一个新的窗口或者显示对话框等
                 System.out.println("点击了制作人员显示按钮");
+
+                //打开制作人员信息窗口
+                dispose();//关闭主菜单界面
+                CreditsJFrame creditsJFrame = new CreditsJFrame();
+                creditsJFrame.setVisible(true);
+
+
+
             }
         });
     }
