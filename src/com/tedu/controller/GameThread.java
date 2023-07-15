@@ -248,11 +248,12 @@ public class GameThread extends Thread {
 		List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
 		List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 		List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
+		List<ElementObj> boss = em.getElementsByKey(GameElement.BOSS);
 		enemys.clear();
 		files.clear();
 		maps.clear();
 		play.clear();
-
+		boss.clear();
 
 	}
 
