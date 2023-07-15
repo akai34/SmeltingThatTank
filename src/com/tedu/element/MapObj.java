@@ -59,7 +59,8 @@ public class MapObj extends ElementObj{
 //			被调用一次 就减少一次血。
 		if ("IRON".equals(name)) {// 水泥墙需要4下
 			this.hpNow -= atk;
-			if (this.hpNow < 0) {
+			if (this.hpNow <= 0) {
+				this.live = false;
 				return;
 			}
 		}
