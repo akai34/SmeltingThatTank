@@ -93,7 +93,7 @@ public class GameThread extends Thread {
 			MapObj m = (MapObj) map;
 			m.setHp(100);
 		}
-		killCount += enemys.size();
+		//killCount += enemys.size();
 //		全部加载完成，游戏启动
 	}
 
@@ -116,6 +116,7 @@ public class GameThread extends Thread {
 			List<ElementObj> Boss = em.getElementsByKey(GameElement.BOSS);
 			//加一个Dianabol，道具类
 			List<ElementObj> dianabols = em.getElementsByKey(GameElement.DIANABOL);
+			
 			moveAndUpdate(all, gameTime);//	游戏元素自动化方法
 			ElementPK(Boss, files); //敌人和玩家子弹的碰撞
 			ElementPK(enemys, files); //敌人和玩家子弹的碰撞
@@ -236,6 +237,9 @@ public class GameThread extends Thread {
 			for (int i = list.size() - 1; i >= 0; i--) {
 				ElementObj obj = list.get(i);//读取为基类
 				if (!obj.isLive()) {//如果死亡
+					if (obj instanceof Enemy) {
+						addKillCount();
+					}
 //					list.remove(i--);  //可以使用这样的方式
 //					启动一个死亡方法(方法中可以做事情例如:死亡动画 ,掉装备)
 					obj.die();//需要大家自己补充
@@ -291,6 +295,13 @@ public class GameThread extends Thread {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * @author L
+	 * 增加杀敌数
+	 */
+	public void addKillCount() {
+		killCount++;
 	}
 }
 
