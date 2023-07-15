@@ -82,8 +82,7 @@ public class MainMenuJFrame extends JFrame {
 
                 // 启动游戏界面
                 gameJFrame.start();
-
-                // 关闭主菜单界面
+//                隐藏界面
                 dispose();
             }
         });

@@ -1,8 +1,13 @@
 package com.tedu.show;
 
+import com.tedu.element.ElementObj;
+import com.tedu.manager.ElementManager;
+import com.tedu.manager.GameElement;
+
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -63,8 +68,7 @@ public class GameJFrame extends JFrame{
 //			new Thread((Runnable)this.jPanel).start();
 			Runnable run=(Runnable)this.jPanel;
 			Thread th=new Thread(run);
-			th.start();// 
-			System.out.println("是否启动");
+			th.start();
 		}
 		
 	}

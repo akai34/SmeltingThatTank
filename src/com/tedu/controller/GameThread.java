@@ -30,7 +30,6 @@ public class GameThread extends Thread {
 	private ElementManager em;
 	//初始关卡
 	private int checkPoint = 1;
-	private int killCount = 0;
 
 	//杀敌数
 	public GameThread() {
@@ -52,12 +51,11 @@ public class GameThread extends Thread {
 				break;
 			}
 		}
-		//结束线程
+		System.exit(0);
 	}
 
 	public boolean gameResult() {
-//		如果玩家死亡、
-		if (em.getElementsByKey(GameElement.PLAY).size() == 0) {
+		if (checkPoint == 5) {
 			//弹窗游戏结束，休眠5秒
 			JFrame resultFrame = new JFrame("游戏结束");
 			JLabel resultLabel = new JLabel("游戏结束，3秒后回到菜单");
@@ -73,24 +71,8 @@ public class GameThread extends Thread {
 			resultFrame.dispose();
 			return true;
 		}
-		//如果是最后一关，就展示游戏通关并且结束进程
-		else if (checkPoint == 4) {
-			//弹窗游戏结束，休眠5秒
-			JFrame resultFrame = new JFrame("游戏结束");
-			JLabel resultLabel = new JLabel("恭喜通关，3秒后回到菜单");
-			resultFrame.getContentPane().add(resultLabel);
-			resultFrame.setBounds(400, 400, 200, 200);
-			resultFrame.setLocationRelativeTo(null);//屏幕居中显示
-			resultFrame.setVisible(true);
-			try {
-				sleep(3000);
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
-			resultFrame.dispose();
-			return true;
-		}
-		else {
+		else if(isFinished()){
+			checkPoint++;
 			//弹窗统计杀敌记录，等待3秒前往下一关
 			JFrame resultFrame = new JFrame("关卡结束");
 			JLabel resultLabel = new JLabel("恭喜通关，3秒后进入下一关");
@@ -106,7 +88,26 @@ public class GameThread extends Thread {
 			resultFrame.dispose();
 			return false;
 		}
-
+//		如果玩家死亡、
+		else if (em.getElementsByKey(GameElement.PLAY).size() == 0) {
+			//弹窗游戏结束，休眠5秒
+			JFrame resultFrame = new JFrame("游戏结束");
+			JLabel resultLabel = new JLabel("游戏结束，3秒后回到菜单");
+			resultFrame.getContentPane().add(resultLabel);
+			resultFrame.setBounds(400, 400, 200, 200);
+			resultFrame.setLocationRelativeTo(null);//屏幕居中显示
+			resultFrame.setVisible(true);
+			try {
+				sleep(3000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+			resultFrame.dispose();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -202,7 +203,7 @@ public class GameThread extends Thread {
 						}
 					}
 
-					dianabol.setLive(999999);
+					dianabol.setLive(dianabol.getHp()+1);
 				}
 			}
 			}
@@ -303,20 +304,20 @@ public class GameThread extends Thread {
 		play.clear();
 		boss.clear();		
 		dianabols.clear();
-
+		EnemyCreate.nowRound = 0;
 	}
 
 	private boolean isFinished() { //判断是否通关
-//		如果轮数不达标则继续
-		if (EnemyCreate.nowRound < EnemyCreate.rounds) {
-			return false;
-		}
+
 		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 		List<ElementObj> Boss = em.getElementsByKey(GameElement.BOSS);
 		if (enemys.isEmpty() && Boss.isEmpty()) {
 			System.out.println("空的！！");
-			checkPoint++;
 			return true;
+		}
+		//		如果轮数不达标则继续
+		if (EnemyCreate.nowRound < EnemyCreate.rounds) {
+			return false;
 		}
 		return false;
 	}
@@ -339,6 +340,7 @@ public class GameThread extends Thread {
 			p.killCount++;
 		}
 	}
+
 }
 
 

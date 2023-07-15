@@ -68,6 +68,10 @@ public abstract class ElementObj {
         if (this instanceof PlayFile) {
             return;
         }
+        //如果血量小于0，就不显示
+        if (this.getHpNow() <= 0) {
+            return;
+        }
         //设置颜色为红色
         g.setColor(java.awt.Color.RED);
         g.drawRect(this.getX(), this.getY() - 10, this.getW(), 5);
