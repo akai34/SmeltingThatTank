@@ -11,6 +11,7 @@ import com.tedu.element.Enemy;
 import com.tedu.element.MapObj;
 import com.tedu.element.Play;
 import com.tedu.element.Dianabol;
+import com.tedu.element.die;
 
 /**
  * @说明  加载器(工具：用户读取配置文件的工具)工具类,大多提供的是 static方法
@@ -84,6 +85,9 @@ public class GameLoad {
 	 *@说明 加载图片代码
 	 *加载图片 代码和图片之间差 一个 路径问题 
 	 */
+	//loaddata
+
+
 	public static void loadImg() {//可以带参数，因为不同的关也可能需要不一样的图片资源
 		String texturl="com/tedu/text/GameData.pro";//文件的命名可以更加有规律
 		ClassLoader classLoader = GameLoad.class.getClassLoader();

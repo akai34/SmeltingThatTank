@@ -1,6 +1,6 @@
 package com.tedu.element;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +68,15 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		g.drawImage(this.getIcon().getImage(), 
 				this.getX(), this.getY(), 
 				this.getW(), this.getH(), null);
+	//在屏幕的右下角显示玩家的血量 字体加粗，蓝色，显示当前/最大 g.drawString("血量:"+this.getHpNow(), 20, 20);
+		//加粗字号
+		g.setFont(new Font("黑体",Font.BOLD,16));
+		//切换成黑色
+		g.setColor(Color.BLACK);
+		g.drawString("血量:"+this.getHpNow()+"/"+this.getHp()+"     "+"攻击力:"+this.getAttack(), 15, 20);
+
+
+
 	}
 	/*
 	 * @说明 重写方法： 重写的要求：方法名称 和参数类型序列 必须和父类的方法一样

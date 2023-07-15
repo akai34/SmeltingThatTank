@@ -149,12 +149,23 @@ public class GameThread extends Thread {
 					//攻击速度变化
 					//playerMoveNum+1 playerMoveNum是全局变量
 					//输出玩家的移动速度
-					playerMoveNum+=2;
+					if(playerMoveNum>1 && playerMoveNum<20 ){
+						playerMoveNum+=1;
+					}
+
 					System.out.println("玩家的移动速度为：" + playerMoveNum);
 					//设置玩家的攻击力
 					for (ElementObj p : play) {
 						Play play1 = (Play) p;
 						play1.setAttack(play1.getAttack()+1);
+					}
+					//给玩家加血
+					for (ElementObj p : play) {
+						Play play1 = (Play) p;
+						if(play1.getHpNow()<100){
+							play1.setHpNow(play1.getHpNow()+10);
+						}
+
 					}
 
 					dianabol.setLive(999999);
@@ -249,11 +260,13 @@ public class GameThread extends Thread {
 		List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 		List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
 		List<ElementObj> boss = em.getElementsByKey(GameElement.BOSS);
+		List<ElementObj> dianabols = em.getElementsByKey(GameElement.DIANABOL);
 		enemys.clear();
 		files.clear();
 		maps.clear();
 		play.clear();
-		boss.clear();
+		boss.clear();		
+		dianabols.clear();
 
 	}
 

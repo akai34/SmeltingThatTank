@@ -36,8 +36,8 @@ public class Dianabol extends ElementObj {
         this.setX(x);
         this.setY(y);
         //设置大小
-        this.setW(50);
-        this.setH(50);
+        this.setW(30);
+        this.setH(30);
 //        50%概率触发addblood,50%触发addattack
 
         int probability=ran.nextInt(100);
@@ -49,11 +49,6 @@ public class Dianabol extends ElementObj {
         }
         return this;
     }
-
-//    @Override
-//    protected void updateImage() {
-//
-//    }
 
     @Override
     public void showElement(Graphics g) {
