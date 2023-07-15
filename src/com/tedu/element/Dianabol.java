@@ -50,11 +50,6 @@ public class Dianabol extends ElementObj {
         return this;
     }
 
-//    @Override
-//    protected void updateImage() {
-//
-//    }
-
     @Override
     public void showElement(Graphics g) {
         //System.out.println("Dianabol.showElement触发");

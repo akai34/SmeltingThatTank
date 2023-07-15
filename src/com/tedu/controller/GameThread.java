@@ -139,7 +139,7 @@ public class GameThread extends Thread {
 	}
 
 	private void tankPkDianabol(List<ElementObj> play, List<ElementObj> dianabols) {
-		System.out.println("pkDianabol触发");
+		//System.out.println("pkDianabol触发");
 		for (int i = 0; i < play.size(); i++) {
 			ElementObj player = play.get(i);//定义玩家的对象
 			for (int j = 0; j < dianabols.size(); j++) {

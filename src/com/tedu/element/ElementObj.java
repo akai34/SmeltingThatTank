@@ -1,9 +1,14 @@
 package com.tedu.element;
 
+import com.tedu.manager.ElementManager;
+import com.tedu.manager.GameElement;
+import com.tedu.manager.GameLoad;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
+import com.tedu.element.die;
 
 /**
  * @author renjj
@@ -194,7 +199,14 @@ public abstract class ElementObj {
 //			被调用一次 就减少一次血。
 		this.hpNow -= atk;
 		if (this.hpNow <= 0) {
-			this.live = false;
+
+//            int x=this.getX();
+//            int y=this.getY();
+//            String DieStr=x+";"+y;
+//            ElementObj obj= GameLoad.getObj("die");
+//            ElementObj element = obj.createElement(DieStr);
+//            ElementManager.getManager().addElement(element, GameElement.DIE);
+            this.live = false;
 		}
     }
 

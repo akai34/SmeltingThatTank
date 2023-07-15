@@ -30,7 +30,10 @@ public class MapObj extends ElementObj{
 //		先写一个假图片再说
 		ImageIcon icon=null;
 		switch(arr[0]) { //设置图片信息 图片还未加载到内存中
-		case "GRASS": icon=new ImageIcon("image/wall/grass.png");break;
+		case "GRASS": icon=new ImageIcon("image/wall/grass.png");
+			this.hp=4;
+			name="GRASS";
+			break;
 		case "BRICK": icon=new ImageIcon("image/wall/brick.png");
 			this.hp=4;
 			name="BRICK";
@@ -84,6 +87,13 @@ public class MapObj extends ElementObj{
 				ElementObj element = obj.createElement(DianabolStr);
 				ElementManager.getManager().addElement(element, GameElement.DIANABOL);
 				System.out.println("已经加入到道具集合中了");
+				int x1=this.getX();
+				int y1=this.getY();
+				String DieStr=x1+";"+y1;
+
+				ElementObj obj1= GameLoad.getObj("die");
+				ElementObj element1 = obj1.createElement(DieStr);
+				ElementManager.getManager().addElement(element1, GameElement.DIE);
 				this.live = false;
 			}
 
@@ -106,6 +116,42 @@ public class MapObj extends ElementObj{
 				ElementManager.getManager().addElement(element, GameElement.DIANABOL);
 				System.out.println("已经加入到道具集合中了");
 				}
+				int x=this.getX();
+				int y=this.getY();
+				String DieStr=x+";"+y;
+
+				ElementObj obj= GameLoad.getObj("die");
+				ElementObj element = obj.createElement(DieStr);
+				ElementManager.getManager().addElement(element, GameElement.DIE);
+				this.live = false;
+			}
+
+		}
+		if ("GRASS".equals(name)) {
+			this.hpNow -= atk;
+			if (this.hpNow > 0) {
+				return;
+			}
+			//如果小于0，触发创建道具的方法
+			else if (this.hpNow <= 0) {
+				//有一定几率创建道具,写出概率
+				Random ran=new Random();
+				int probability=ran.nextInt(100);
+				if(probability<=10){
+					System.out.println("创建了一个道具");
+					String DianabolStr="000";
+					ElementObj obj= GameLoad.getObj("Dianabol");
+					ElementObj element = obj.createElement(DianabolStr);
+					ElementManager.getManager().addElement(element, GameElement.DIANABOL);
+					System.out.println("已经加入到道具集合中了");
+				}
+				int x=this.getX();
+				int y=this.getY();
+				String DieStr=x+";"+y;
+
+				ElementObj obj= GameLoad.getObj("die");
+				ElementObj element = obj.createElement(DieStr);
+				ElementManager.getManager().addElement(element, GameElement.DIE);
 				this.live = false;
 			}
 
