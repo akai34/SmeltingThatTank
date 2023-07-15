@@ -70,7 +70,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				this.getW(), this.getH(), null);
 	//在屏幕的右下角显示玩家的血量 字体加粗，蓝色，显示当前/最大 g.drawString("血量:"+this.getHpNow(), 20, 20);
 		//加粗字号
-		g.setFont(new Font("黑体",Font.BOLD,20));
+		g.setFont(new Font("黑体",Font.BOLD,16));
+		//切换成黑色
+		g.setColor(Color.BLACK);
 		g.drawString("血量:"+this.getHpNow()+"/"+this.getHp()+"     "+"攻击力:"+this.getAttack(), 15, 20);
 
 
