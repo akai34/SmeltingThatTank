@@ -18,6 +18,11 @@ public class Enemy extends ElementObj{
 	private boolean down=false; //下
 	private String fx="enemyUp";
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
+
+	private String l = "enemyLeft";
+	private String r = "enemyRight";
+	private String u = "enemyUp";
+	private String d = "enemyDown";
 	@Override
 	public void showElement(Graphics g) {
 		g.drawImage(this.getIcon().getImage(), 
@@ -26,14 +31,16 @@ public class Enemy extends ElementObj{
 	}
 	@Override
 	public ElementObj createElement(String str) {
-		Random ran=new Random();
-		int x=ran.nextInt(800);
-		int y=ran.nextInt(500);
-		this.setX(x);
-		this.setY(y);
-		if (!Objects.equals(str, fx))
-			fx = "enemyLeft";
-		ImageIcon icon2 = GameLoad.imgMap.get(str);
+//		String enemyType = "400,0,"+HP+","+ATK+",enemy";
+		String[] split = str.split(",");
+		this.setX(Integer.parseInt(split[0]));
+		this.setY(Integer.parseInt(split[1]));
+		//获取敌人的血量和攻击力，转化为double.赋值给敌人
+		this.setHp(Double.parseDouble(split[2]));
+		this.setAttack(Double.parseDouble(split[3]));
+		fx = "enemyLeft";
+		ImageIcon icon2 = GameLoad.imgMap.get(fx);
+		System.out.println(icon2.getIconWidth()+" "+icon2.getIconHeight());
 		this.setW(icon2.getIconWidth()-10);
 		this.setH(icon2.getIconHeight()-10);
 		this.setIcon(icon2);
@@ -114,10 +121,6 @@ public class Enemy extends ElementObj{
 	 * x=0,1,2,3 上下左右
 	 */
 	private void setF(int x) {
-		String l = "enemyLeft";
-		String r = "enemyRight";
-		String u = "enemyUp";
-		String d = "enemyDown";
 		if (x==0) {
 			fx=u;
 			up=true;
@@ -210,5 +213,30 @@ public class Enemy extends ElementObj{
 		}//个人认为： 玩游戏有助于 理解面向对象思想;不能专门玩，需要思考，父类应该怎么抽象，子类应该怎么实现
 //		学习技术不犯法，但是不要用技术做犯法的事.
 		return "x:"+x+",y:"+y+",f:"+fxx;
+	}
+//	设置fx
+	public void setFx(String fx) {
+		this.fx = fx;
+	}
+//	获取fx
+	public String getFx() {
+		return fx;
+	}
+//	private String l = "enemyLeft";
+//	private String r = "enemyRight";
+//	private String u = "enemyUp";
+//	private String d = "enemyDown";
+//	设置字符串
+	public void setL(String l) {
+		this.l = l;
+	}
+	public void setR(String r) {
+		this.r = r;
+	}
+	public void setU(String u) {
+		this.u = u;
+	}
+	public void setD(String d) {
+		this.d = d;
 	}
 }

@@ -61,18 +61,12 @@ public class GameLoad {
 //					System.out.println(key);
 					ElementObj obj = null;
 					if (Objects.equals(key, "ENEMY")) {
-//						System.out.println(key);
-						obj = getObj("enemy");
-						String enemyType = "enemyUp";
-
-						if (Objects.equals(arrs[i], "1")) {
-							enemyType = "enemyLeft";
-						}
-						ElementObj element = obj.createElement(enemyType);
-						em.addElement(element, GameElement.ENEMY);
+//						调用EnemyCreate方法储存数据
+						EnemyCreate.EnemyCreate(arrs[i]);
 					}
-
-
+					else if (Objects.equals(key, "BOSS")) {
+						EnemyCreate.BossCreate(arrs[i]);
+					}
 					else {
 						ElementObj element = new MapObj().createElement(key + "," + arrs[i]);
 						em.addElement(element, GameElement.MAPS);
@@ -104,7 +98,7 @@ public class GameLoad {
 				String url=pro.getProperty(o.toString());
 				imgMap.put(o.toString(), new ImageIcon(url));
 			}
-			
+//			System.out.println(imgMap);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

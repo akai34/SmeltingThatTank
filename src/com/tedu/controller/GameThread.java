@@ -10,11 +10,9 @@ import java.util.TimerTask;
 
 import javax.swing.*;
 
-import com.tedu.element.ElementObj;
-import com.tedu.element.Enemy;
-import com.tedu.element.MapObj;
-import com.tedu.element.Play;
+import com.tedu.element.*;
 import com.tedu.manager.ElementManager;
+import com.tedu.manager.EnemyCreate;
 import com.tedu.manager.GameElement;
 import com.tedu.manager.GameLoad;
 import com.tedu.show.GameMainJPanel;
@@ -80,12 +78,9 @@ public class GameThread extends Thread {
 		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 		//获取主角信息
 		List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
-		//设置敌人和玩家血量为100，攻击力为20
-		for (ElementObj enemy : enemys) {
-			Enemy e = (Enemy) enemy;
-			e.setHp(100);
-			e.setAttack(20);
-		}
+
+//		调用EnemyCreate的方法，创建敌人
+		EnemyCreate.createEnemy(0);
 		//设置主角血量为100，攻击力为20
 		for (ElementObj p : play) {
 			Play play1 = (Play) p;
@@ -118,17 +113,21 @@ public class GameThread extends Thread {
 			List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
 			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 			List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
+			List<ElementObj> Boss = em.getElementsByKey(GameElement.BOSS);
 			//加一个Dianabol，道具类
 			List<ElementObj> dianabols = em.getElementsByKey(GameElement.DIANABOL);
 			moveAndUpdate(all, gameTime);//	游戏元素自动化方法
-
+			ElementPK(Boss, files); //敌人和玩家子弹的碰撞
 			ElementPK(enemys, files); //敌人和玩家子弹的碰撞
 			ElementPK(maps, files); //子弹和地图的碰撞
 			ElementPK(play, files); //主角和子弹的碰撞
 			tankPkBlock(enemys, maps); //敌人和地图的碰撞
+			tankPkBlock(Boss, maps); //敌人和地图的碰撞
 			tankPkBlock(play, maps);	//主角和地图的碰撞
 			tankPkDianabol(play, dianabols); //主角和道具的碰撞
 			gameTime++;//唯一的时间控制
+//			每隔10秒,加载新的敌人
+				EnemyCreate.createEnemy(gameTime);
 			try {
 				sleep(10);//默认理解为 1秒刷新100次
 			} catch (InterruptedException e) {
@@ -139,7 +138,7 @@ public class GameThread extends Thread {
 	}
 
 	private void tankPkDianabol(List<ElementObj> play, List<ElementObj> dianabols) {
-		System.out.println("pkDianabol触发");
+//		System.out.println("pkDianabol触发");
 		for (int i = 0; i < play.size(); i++) {
 			ElementObj player = play.get(i);//定义玩家的对象
 			for (int j = 0; j < dianabols.size(); j++) {
@@ -177,7 +176,7 @@ public class GameThread extends Thread {
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
 //					扩展 留给大家
 					//如果是玩家子弹且承受者是敌人
-					if (B.getType()	== 1 && A.getClass() == Enemy.class) {
+					if (B.getType()	== 1 && (A.getClass() == Enemy.class || A.getClass() == Boss.class)) {
 						A.setLive(B.getAttack());
 						B.setLive(A.getAttack());
 					}//如果是敌人子弹且承受着是玩家
@@ -258,6 +257,10 @@ public class GameThread extends Thread {
 	}
 
 	private boolean isFinished() { //判断是否通关
+//		如果轮数不达标则继续
+		if (EnemyCreate.nowRound < EnemyCreate.rounds) {
+			return false;
+		}
 //		System.out.println("看看是不是空的");
 		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 		if (enemys.isEmpty()) {
