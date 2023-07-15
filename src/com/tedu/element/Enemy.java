@@ -130,10 +130,11 @@ public class Enemy extends ElementObj{
 	 */
 	public void returnMove() {
 //		System.out.println("撞到了");
-		if (up) this.setY(this.getY() + 2);
-		if (down) this.setY(this.getY() - 2);
-		if (left) this.setX(this.getX() + 2);
-		if (right) this.setX(this.getX() - 2);
+		int speed = getSpeed() + 1;
+		if (up) this.setY(this.getY() + speed);
+		if (down) this.setY(this.getY() - speed);
+		if (left) this.setX(this.getX() + speed);
+		if (right) this.setX(this.getX() - speed);
 		//方向改变
 		Random ran=new Random();
 		int nxt=ran.nextInt(100)%4;//下一个方向
@@ -162,6 +163,8 @@ public class Enemy extends ElementObj{
 //		System.out.println("子弹是否为空"+element);
 		//设置子弹的攻击力
 		element.setAttack(this.getAttack());
+		//设置子弹的速度
+		element.setMoveNum(7);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
 //		如果要控制子弹速度等等。。。。还需要代码编写

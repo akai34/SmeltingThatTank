@@ -55,6 +55,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		this.setW(icon2.getIconWidth()-10);
 		this.setH(icon2.getIconHeight()-10);
 		this.setIcon(icon2);
+		this.setSpeed(1);
 		return this;
 	}
 	
@@ -123,16 +124,16 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	public void move() {
 		if (this.left && this.getX()>0) {
-			this.setX(this.getX() - 1);
+			this.setX(this.getX() - getSpeed());
 		}
 		if (this.up  && this.getY()>0) {
-			this.setY(this.getY() - 1);
+			this.setY(this.getY() - getSpeed());
 		}
 		if (this.right && this.getX()<900-this.getW()) {  //坐标的跳转由大家来完成
-			this.setX(this.getX() + 1);
+			this.setX(this.getX() + getSpeed());
 		}
 		if (this.down && this.getY()<600-this.getH()) {
-			this.setY(this.getY() + 1);
+			this.setY(this.getY() + getSpeed());
 		}
 	}
 	@Override
@@ -169,8 +170,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		ElementObj element = obj.createElement(this.toString());
 		element.setType(1);
 		//设置子弹moveNum为10
-		element.setMoveNum(playerMoveNum);
-
+		element.setMoveNum(10);
 		//设置子弹的攻击力
 		element.setAttack(this.getAttack());
 //		System.out.println("子弹是否为空"+element);
@@ -182,10 +182,11 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	public void returnMove() {
 //		System.out.println("撞到了");
-		if (up) this.setY(this.getY() + 2);
-		if (down) this.setY(this.getY() - 2);
-		if (left) this.setX(this.getX() + 2);
-		if (right) this.setX(this.getX() - 2);
+		int speed = getSpeed() + 1;
+		if (up) this.setY(this.getY() + speed);
+		if (down) this.setY(this.getY() - speed);
+		if (left) this.setX(this.getX() + speed);
+		if (right) this.setX(this.getX() - speed);
 	}
 	@Override
 	public String toString() {// 这里是偷懒，直接使用toString；建议自己定义一个方法

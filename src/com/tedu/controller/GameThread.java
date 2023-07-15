@@ -86,12 +86,6 @@ public class GameThread extends Thread {
 			play1.setHp(100);
 			play1.setAttack(5);
 		}
-		//设置砖块血量为100
-		List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
-		for (ElementObj map : maps) {
-			MapObj m = (MapObj) map;
-			m.setHp(100);
-		}
 		//killCount += enemys.size();
 //		全部加载完成，游戏启动
 	}
@@ -148,11 +142,9 @@ public class GameThread extends Thread {
 					//攻击速度变化
 					//playerMoveNum+1 playerMoveNum是全局变量
 					//输出玩家的移动速度
-					if(playerMoveNum>1 && playerMoveNum<20 ){
-						playerMoveNum+=1;
+					if(player.getSpeed()<5 ){
+						player.setSpeed(player.getSpeed()+1);
 					}
-
-					System.out.println("玩家的移动速度为：" + playerMoveNum);
 					//设置玩家的攻击力
 					for (ElementObj p : play) {
 						Play play1 = (Play) p;
@@ -164,7 +156,6 @@ public class GameThread extends Thread {
 						if(play1.getHpNow()<100){
 							play1.setHpNow(play1.getHpNow()+10);
 						}
-
 					}
 
 					dianabol.setLive(999999);

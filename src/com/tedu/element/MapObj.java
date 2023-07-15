@@ -10,8 +10,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 public class MapObj extends ElementObj{
-//	墙需要血量	
-	private int hp;
+//	墙需要血量
 	private String name;//墙的type  也可以使用枚举
 	
 	@Override
@@ -31,21 +30,21 @@ public class MapObj extends ElementObj{
 		ImageIcon icon=null;
 		switch(arr[0]) { //设置图片信息 图片还未加载到内存中
 		case "GRASS": icon=new ImageIcon("image/wall/grass.png");
-			this.hp=4;
+			this.setHp(50);
 			name="GRASS";
 			break;
 		case "BRICK": icon=new ImageIcon("image/wall/brick.png");
-			this.hp=4;
+			this.setHp(100);
 			name="BRICK";
 			break;
 		case "RIVER": icon=new ImageIcon("image/wall/river.png");break;
 		case "IRON": icon=new ImageIcon("image/wall/iron.png");
-					this.hp=4;
+					this.setHp(200);
 					name="IRON";
 					break;
 					//新增一个道具类型的墙，这个墙可以被打掉，打掉之后会出现一个道具
 		case "Dianabol": icon=new ImageIcon("image/wall/Dianabol.png");
-					this.hp=5;
+					this.setHp(100);
 					name="Dianabol";
 					break;
 		}
