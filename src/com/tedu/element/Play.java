@@ -35,6 +35,8 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean up=false;   //上
 	private boolean right=false;//右
 	private boolean down=false; //下
+	//记录杀敌数
+	public int killCount=0;
 	
 
 //	变量专门用来记录当前主角面向的方向,默认为是up
@@ -75,7 +77,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		//切换成黑色
 		g.setColor(Color.BLACK);
 		g.drawString("血量:"+this.getHpNow()+"/"+this.getHp()+"     "+"攻击力:"+this.getAttack(), 15, 20);
-
+		g.drawString("杀敌数:"+this.killCount, 15, 550);
 
 
 	}

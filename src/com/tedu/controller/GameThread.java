@@ -46,23 +46,67 @@ public class GameThread extends Thread {
 			gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
 			gameOver();
-//			展示游戏结果
-			//弹窗统计杀敌记录，休眠5秒
-			JFrame resultFrame = new JFrame("关卡结果");
-			JLabel killCountLabel = new JLabel("杀敌数: " + killCount);
-			resultFrame.getContentPane().add(killCountLabel);
+//			展示游戏结果,如果是最后一关，就展示游戏通关并且结束进程
+			if(gameResult()) {
+				//结束线程
+				break;
+			}
+		}
+		//结束线程
+	}
+
+	public boolean gameResult() {
+//		如果玩家死亡、
+		if (em.getElementsByKey(GameElement.PLAY).size() == 0) {
+			//弹窗游戏结束，休眠5秒
+			JFrame resultFrame = new JFrame("游戏结束");
+			JLabel resultLabel = new JLabel("游戏结束，3秒后回到菜单");
+			resultFrame.getContentPane().add(resultLabel);
 			resultFrame.setBounds(400, 400, 200, 200);
 			resultFrame.setLocationRelativeTo(null);//屏幕居中显示
 			resultFrame.setVisible(true);
 			try {
-				sleep(5000);
+				sleep(3000);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
 			resultFrame.dispose();
-			if (checkPoint == 3)
-				break;
+			return true;
 		}
+		//如果是最后一关，就展示游戏通关并且结束进程
+		else if (checkPoint == 4) {
+			//弹窗游戏结束，休眠5秒
+			JFrame resultFrame = new JFrame("游戏结束");
+			JLabel resultLabel = new JLabel("恭喜通关，3秒后回到菜单");
+			resultFrame.getContentPane().add(resultLabel);
+			resultFrame.setBounds(400, 400, 200, 200);
+			resultFrame.setLocationRelativeTo(null);//屏幕居中显示
+			resultFrame.setVisible(true);
+			try {
+				sleep(3000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+			resultFrame.dispose();
+			return true;
+		}
+		else {
+			//弹窗统计杀敌记录，等待3秒前往下一关
+			JFrame resultFrame = new JFrame("关卡结束");
+			JLabel resultLabel = new JLabel("恭喜通关，3秒后进入下一关");
+			resultFrame.getContentPane().add(resultLabel);
+			resultFrame.setBounds(400, 400, 200, 200);
+			resultFrame.setLocationRelativeTo(null);//屏幕居中显示
+			resultFrame.setVisible(true);
+			try {
+				sleep(3000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+			resultFrame.dispose();
+			return false;
+		}
+
 	}
 
 	/**
@@ -142,7 +186,7 @@ public class GameThread extends Thread {
 					//攻击速度变化
 					//playerMoveNum+1 playerMoveNum是全局变量
 					//输出玩家的移动速度
-					if(player.getSpeed()<5 ){
+					if(player.getSpeed()<3 ){
 						player.setSpeed(player.getSpeed()+1);
 					}
 					//设置玩家的攻击力
@@ -289,7 +333,11 @@ public class GameThread extends Thread {
 	 * 增加杀敌数
 	 */
 	public void addKillCount() {
-		killCount++;
+		List<ElementObj> play = em.getElementsByKey(GameElement.PLAY);
+		for (ElementObj elementObj : play) {
+			Play p = (Play) elementObj;
+			p.killCount++;
+		}
 	}
 }
 

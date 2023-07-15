@@ -54,7 +54,6 @@ public class EnemyCreate {
             ElementObj obj = GameLoad.getObj("boss");
             nowRound++;
             HP = HP * BossIntensity;
-            ATK = ATK * BossIntensity;
             String enemyType = "400,0," + HP + "," + ATK;
             for (int i = 0; i < BossNum; i++) {
                 ElementObj element = obj.createElement(enemyType);
