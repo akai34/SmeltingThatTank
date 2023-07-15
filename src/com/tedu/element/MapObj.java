@@ -5,6 +5,7 @@ import com.tedu.manager.GameElement;
 import com.tedu.manager.GameLoad;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -30,7 +31,10 @@ public class MapObj extends ElementObj{
 		ImageIcon icon=null;
 		switch(arr[0]) { //设置图片信息 图片还未加载到内存中
 		case "GRASS": icon=new ImageIcon("image/wall/grass.png");break;
-		case "BRICK": icon=new ImageIcon("image/wall/brick.png");break;
+		case "BRICK": icon=new ImageIcon("image/wall/brick.png");
+			this.hp=4;
+			name="BRICK";
+			break;
 		case "RIVER": icon=new ImageIcon("image/wall/river.png");break;
 		case "IRON": icon=new ImageIcon("image/wall/iron.png");
 					this.hp=4;
@@ -80,6 +84,28 @@ public class MapObj extends ElementObj{
 				ElementObj element = obj.createElement(DianabolStr);
 				ElementManager.getManager().addElement(element, GameElement.DIANABOL);
 				System.out.println("已经加入到道具集合中了");
+				this.live = false;
+			}
+
+		}
+		if ("BRICK".equals(name)) {
+			this.hpNow -= atk;
+			if (this.hpNow > 0) {
+				return;
+			}
+			//如果小于0，触发创建道具的方法
+			else if (this.hpNow <= 0) {
+				//有一定几率创建道具,写出概率
+				Random ran=new Random();
+				int probability=ran.nextInt(100);
+				if(probability<=10){
+				System.out.println("创建了一个道具");
+				String DianabolStr="000";
+				ElementObj obj= GameLoad.getObj("Dianabol");
+				ElementObj element = obj.createElement(DianabolStr);
+				ElementManager.getManager().addElement(element, GameElement.DIANABOL);
+				System.out.println("已经加入到道具集合中了");
+				}
 				this.live = false;
 			}
 
