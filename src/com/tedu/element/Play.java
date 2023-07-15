@@ -158,7 +158,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	这个控制代码 自己写
 	@Override   //添加子弹
 	public void add(long gameTime) {//有啦时间就可以进行控制
-		if(gameTime < filetime + 1 || !pkType) {//如果是不发射状态 就直接return
+		if(gameTime < filetime || !pkType) {//如果是不发射状态 就直接return
 			return;
 		}
 		filetime = gameTime;//按一次，发射一个子弹。拼手速(也可以增加变量来控制)

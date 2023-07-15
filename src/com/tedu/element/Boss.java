@@ -27,6 +27,7 @@ public class Boss extends Enemy{
         this.setW(icon2.getIconWidth()-10);
         this.setH(icon2.getIconHeight()-10);
         this.setIcon(icon2);
+        this.setSpeed(2);
         return this;
     }
     @Override

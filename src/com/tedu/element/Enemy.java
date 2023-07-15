@@ -43,22 +43,23 @@ public class Enemy extends ElementObj{
 		this.setW(icon2.getIconWidth()-10);
 		this.setH(icon2.getIconHeight()-10);
 		this.setIcon(icon2);
+		this.setSpeed(1);
 		return this;
 	}
 	@Override
 	public void move() {
 		changeMove();
 		if (this.left && this.getX()>0) {
-			this.setX(this.getX() - 1);
+			this.setX(this.getX() - getSpeed());
 		}
 		if (this.up  && this.getY()>0) {
-			this.setY(this.getY() - 1);
+			this.setY(this.getY() - getSpeed());
 		}
 		if (this.right && this.getX()<780-this.getW()) {  //坐标的跳转由大家来完成
-			this.setX(this.getX() + 1);
+			this.setX(this.getX() + getSpeed());
 		}
 		if (this.down && this.getY()<580-this.getH()) {
-			this.setY(this.getY() + 1);
+			this.setY(this.getY() + getSpeed());
 		}
 	}
 	private Long moveTime = 0L;
